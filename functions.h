@@ -59,22 +59,23 @@ void id_assign(int &accNumChk)
 void read_file(Person **person, short *n){
     siz(n);
     Person *t = new Person[*n];
-    fin.open(filename, ios::in);
+    fin.open(filename, ios::binary);
     if (fin.is_open())
     {
         color(10);
         cout << filename << " access granted!" << endl;
         cout << endl;
         color(15);
-        for (int i = 0; i < *n; i++)
+       for (int i = 0; i < *n; i++)
         {
+            //fin.read((char *)&person, sizeof(person));
 
             fin >> t[i].fname;
             fin >> t[i].sname;
             fin >> t[i].accountId;
             fin >> t[i].balance;
             fin >> t[i].loan;
-        }
+       }
     }
     else
     {
