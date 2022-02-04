@@ -52,7 +52,7 @@ void i_data(Person **person,short &n)
     }
     *person = t;
     
-    fout.open(filename , ios::binary | ios::ate | ios::out);
+    fout.open(filename , ios::binary | ios::ate | ios::out | ios::app);
     if (fout.is_open())
     {
         color(10);
