@@ -1,6 +1,10 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
+#include <conio.h>
+#include <windows.h>
+
 
 using namespace std;
 
@@ -11,8 +15,15 @@ struct Person
 };
 short n;
 Person *person = new Person[n];
-string filename;
+string filename = "accounts.bat";
+ifstream fin;
+ofstream fout;
 
+HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+void color(int n)
+{
+    SetConsoleTextAttribute(console, n);
+}
 
 void i_data(Person **person,short &n)
 {
@@ -26,7 +37,6 @@ void i_data(Person **person,short &n)
         return;
     }
     n = inp;
-    filename = "Nil";
     Person *t = new Person[inp];
     cout << endl;
     cin.ignore();
@@ -41,6 +51,27 @@ void i_data(Person **person,short &n)
         cout << endl;
     }
     *person = t;
+    
+    fout.open(filename , ios::binary | ios::ate | ios::out);
+    if (fout.is_open())
+    {
+        color(10);
+        cout << filename << " access granted!" << endl;
+        cout << endl;
+        color(15);
+        for (int i = 0; i < n; i++)
+        {
+            fout << t[i].fname << "\t" << t[i].sname << "\t" << t[i].accountId << "\t" << t[i].balance << "\t" << t[i].loan << endl;
+        }
+    }
+    else
+    {
+        color(12);
+        cout << "File access denied!" << endl;
+        cout << endl;
+        color(15);
+    }
     delete t;
-
+    fout.close();
+    cin.ignore();
 }
