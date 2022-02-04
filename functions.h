@@ -129,7 +129,7 @@ void i_data(Person **person, short *n)
         color(15);
         for (int i = 0; i < *n; i++)
         {
-            fout << t[i].fname << " " << t[i].sname << " " << t[i].accountId << " " << t[i].balance << " " << t[i].loan << " "<< t[i].pin << endl;
+            fout << t[i].fname << " " << t[i].sname << " " << t[i].accountId << " " << t[i].balance << " " << t[i].loan << " " << t[i].pin << endl;
             //fout.write((char*)&t , sizeof(t));
         }
     }
@@ -153,6 +153,7 @@ void o_data(Person *person, short *n)
     {
         cout << setw(17) << left << person[i].fname << setw(16) << left << person[i].sname << setw(16) << left << person[i].accountId << setw(16) << left << person[i].balance << person[i].loan << endl;
     }
+    cout << endl;
 }
 
 void siz(short *n)
@@ -171,4 +172,23 @@ void siz(short *n)
     }
     fin.close();
     *n = chk / 6;
+}
+
+void login(Person *person, short *n)
+{
+    int id;
+    short pass;
+    cout << "Enter your accountId :: ";
+    cin >> id;
+    cout << "Enter your account Pin :: ";
+    cin >> pass;
+    if (pass == person[id].pin)
+    {
+        cout << "FirstName \t LastName \t AccID \t\t Balance \t Loan" << endl;
+        cout << setw(17) << left << person[id].fname << setw(16) << left << person[id].sname << setw(16) << left << person[id].accountId << setw(16) << left << person[id].balance << person[id].loan << endl;
+    }
+    else
+    {
+        cout << "Please Enter Correct Pin!" << endl;
+    }
 }
