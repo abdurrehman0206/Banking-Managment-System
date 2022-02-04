@@ -13,6 +13,7 @@ struct Person
     string fname, sname;
     int accountId, balance, loan;
 };
+int accNumChk=0;
 short n;
 Person *person = new Person[n];
 string filename = "accounts.dat";
@@ -24,6 +25,25 @@ void color(int n)
 {
     SetConsoleTextAttribute(console, n);
 }
+void id_assign(int &accNumChk){
+    string garbage;
+    int chk = 0;
+
+    fin.open(filename);
+
+    if (fin.is_open())
+    {
+        while (!fin.eof())
+        {
+            fin >> garbage;
+            chk++;
+        }
+    }
+    fin.close();
+    accNumChk = chk / 4;
+}
+
+
 
 void i_data(Person **person,short &n)
 {
@@ -46,6 +66,7 @@ void i_data(Person **person,short &n)
         getline(cin, t[i].fname);
         cout << "Enter " << t[i].fname << "'s Last Name :: ";
         getline(cin, t[i].sname);
+        t[i].accountId = accNumChk++;
         t[i].balance = 0;
         t[i].loan = 0;
         cout << endl;
