@@ -21,13 +21,17 @@ ifstream fin;
 ofstream fout;
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
+//PROTOTYPE
 void color(int n);
 void id_assign(int &accNumChk);
 void read_file(Person **person, short *n);
 void i_data(Person **person, short *n);
 void o_data(Person *person, short *n);
 void siz(short *n);
+//PROTOTYPE
 
+
+//FUNCTIONS
 void color(int n)
 {
     SetConsoleTextAttribute(console, n);
@@ -49,7 +53,7 @@ void id_assign(int &accNumChk)
         }
     }
     fin.close();
-    accNumChk = chk / 4;
+    accNumChk = chk / 5;
 }
 
 void read_file(Person **person, short *n){
