@@ -15,7 +15,7 @@ struct Person
 };
 short n;
 Person *person = new Person[n];
-string filename = "accounts.bat";
+string filename = "accounts.dat";
 ifstream fin;
 ofstream fout;
 
@@ -30,7 +30,7 @@ void i_data(Person **person,short &n)
 
     short inp;
     cout << "Input ::" << endl;
-    cout << "Enter Number of Courses :: ";
+    cout << "Enter Number of Persons to add :: ";
     cin >> inp;
     if (inp == 0)
     {
