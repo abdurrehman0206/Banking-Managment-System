@@ -263,7 +263,7 @@ void send(Person *person, short *n)
     int amount = 0, max_amm, r_id;
     cout << "Enter ID of the Account to send to :: ";
     cin >> r_id;
-    cout << "Enter Amount to send to " << person[r_id].fname << " " << person[r_id].sname << " :: " << endl;
+    cout << "Enter Amount to send to " << person[r_id].fname << " " << person[r_id].sname << " :: " ;
     cin >> amount;
     max_amm = accTypeChk(person);
     if (amount > 0 && amount <= max_amm && person[id].balance > amount)
