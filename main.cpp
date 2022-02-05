@@ -10,7 +10,7 @@ int main()
     bool loop_control = true;
     do
     {
-
+        system("CLS");
         main_opt = main_menu(person, &n);
         system("CLS");
         switch (main_opt)

@@ -246,7 +246,8 @@ bool login(Person *person, short *n, int *id)
     else
     {
         color(12);
-        cout << "Technical Issues!" << endl;
+        cout << "Account Does Not Exist!" << endl;
+        system("CLS");
         color(15);
         return false;
     }
