@@ -4,17 +4,19 @@
 #include <string>
 #include <conio.h>
 #include <windows.h>
+#include <cstring>
 
 using namespace std;
 
 struct Person
 {
-    string fname, sname , accountType;
+    string fname, sname, accountType;
     int accountId, balance, loan;
     short pin;
 };
 
 int accNumChk = 1;
+int id = 2;
 short n;
 Person *person = new Person[n];
 string filename = "accounts.dat";
@@ -30,6 +32,9 @@ void i_data(Person **person, short *n);
 void o_data(Person *person, short *n);
 void siz(short *n);
 void login(Person *person, short *n);
+void withdraw(Person *person, short *n);
+int accTypeChk(Person *person);
+void update_file(Person *person, short *n);
 //PROTOTYPE
 
 //FUNCTIONS
@@ -93,6 +98,28 @@ void read_file(Person **person, short *n)
     cin.ignore();
 }
 
+void update_file(Person *person, short *n)
+{
+
+    fout.open(filename,ios::out);
+    if (fout.is_open())
+    {
+        for (int i = 0; i < *n; i++)
+        {
+            fout << person[i].fname << " " << person[i].sname << " " << person[i].accountId << " " << person[i].accountType << " " << person[i].balance << " " << person[i].loan << " " << person[i].pin << endl;
+        }
+    }
+    else
+    {
+        color(12);
+        cout << "Failed to Update Remote Database!" << endl;
+        cout << endl;
+        color(15);
+    }
+    fout.close();
+    cin.ignore();
+}
+
 void i_data(Person **person, short *n)
 {
     short inp;
@@ -131,7 +158,7 @@ void i_data(Person **person, short *n)
         color(15);
         for (int i = 0; i < *n; i++)
         {
-            fout << t[i].fname << " " << t[i].sname << " " << t[i].accountId <<" " << t[i].accountType << " " << t[i].balance << " " << t[i].loan << " " << t[i].pin << endl;
+            fout << t[i].fname << " " << t[i].sname << " " << t[i].accountId << " " << t[i].accountType << " " << t[i].balance << " " << t[i].loan << " " << t[i].pin << endl;
         }
     }
     else
@@ -178,7 +205,6 @@ void siz(short *n)
 
 void login(Person *person, short *n)
 {
-    int id;
     short pass;
     cout << "Enter your accountId :: ";
     cin >> id;
@@ -197,10 +223,52 @@ void login(Person *person, short *n)
 
 void withdraw(Person *person, short *n)
 {
-    int amount=0;
+    int amount = 0, max_amm;
     cout << "Enter Amount to withdraw :: " << amount << endl;
     cin >> amount;
-    if(amount > 0 && amount < 25000){
+    max_amm = accTypeChk(person);
+    if (amount > 0 && amount <= max_amm && person[id].balance > amount)
+    {
+        person[id].balance -= amount;
+        update_file(person, n);
+        color(10);
+        cout << "Successfully transaction of :: " << amount << endl;
+        cout << "Remaining Balance :: " << person[id].balance << endl;
+        color(15);
+    }
+}
 
+int accTypeChk(Person *person)
+{
+    string type;
+    type = (person[id].accountType);
+    int max_amm;
+    if ((strcmpi(type.c_str(), "platinum")) == 0)
+    {
+        max_amm = 100000;
+        return max_amm;
+    }
+    else if ((strcmpi(type.c_str(), "gold")) == 0)
+    {
+        max_amm = 75000;
+        return max_amm;
+    }
+    else if ((strcmpi(type.c_str(), "silver")) == 0)
+    {
+        max_amm = 50000;
+        return max_amm;
+    }
+    else if ((strcmpi(type.c_str(), "gold")) == 0)
+    {
+        max_amm = 25000;
+        return max_amm;
+    }
+    else
+    {
+        color(12);
+        cout << "Please get your account type updated from the bank!" << endl;
+        color(15);
+        max_amm = 0;
+        return max_amm;
     }
 }
