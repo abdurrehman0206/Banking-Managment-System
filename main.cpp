@@ -35,7 +35,7 @@ int main()
                     default:
                         system("CLS");
                         break;
-                    case 6:
+                    case 7:
                         cout << "Are you sure you want to QUIT![y|Y] :: ";
                         cin >> yn;
                         if (yn == 'y' || yn == 'Y')
@@ -59,10 +59,16 @@ int main()
                         system("CLS");
                         break;
                     case 4:
+                        get_loan(person, &n);
                         system("pause");
                         system("CLS");
                         break;
                     case 5:
+                        pay_loan(person, &n);
+                        system("pause");
+                        system("CLS");
+                        break;
+                    case 6:
                         loop_control = false;
                         system("pause");
                         system("CLS");
@@ -72,6 +78,7 @@ int main()
                 } while (loop_control == true);
             }
             loop_control = true;
+            cin.ignore();
             break;
 
         case 2:
@@ -115,6 +122,7 @@ int main()
                         system("CLS");
                         break;
                     case 4:
+
                         system("pause");
                         system("CLS");
                         break;

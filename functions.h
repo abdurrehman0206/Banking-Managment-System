@@ -43,6 +43,7 @@ int selection(int);
 int main_menu(Person *person, short *n);
 int customer_menu(Person *person, short *n);
 int management_menu(Person *person, short *n);
+bool admin_login();
 //PROTOTYPE
 
 //FUNCTIONS
@@ -323,6 +324,71 @@ void send(Person *person, short *n)
     update_file(person, n);
 }
 
+void get_loan(Person *person, short *n)
+{
+    int amount = 0, max_amm;
+
+    cout << "Enter amount of loan to take :: ";
+    cin >> amount;
+
+    max_amm = accTypeChk(person);
+
+    if (amount > 0 && amount <= max_amm)
+    {
+        person[id].balance += amount;
+        person[id].loan += amount;
+        color(10);
+        cout << "Successfully Took Loan of " << amount << endl;
+        color(15);
+    }
+    else
+    {
+        color(12);
+        cout << "Technical Error!" << endl;
+        color(15);
+    }
+    cout << "New Balance :: " << person[id].balance << endl;
+    cout << "Loan Added :: " << person[id].loan << endl;
+    update_file(person, n);
+}
+
+void pay_loan(Person *person, short *n)
+{
+    int amount = 0, max_amm;
+
+    cout << "Enter amount of loan to pay :: ";
+    cin >> amount;
+    if (amount < person[id].balance && amount <= person[id].loan)
+    {
+        person[id].balance -= amount;
+        person[id].loan -= amount;
+        color(10);
+        cout << "Successfully Paid Loan of " << amount << endl;
+        color(15);
+    }
+    else if (amount > person[id].loan)
+    {
+        color(12);
+        cout << "You are trying to pay more than you owe!" << endl;
+        color(15);
+    }
+    else if (amount > person[id].balance)
+    {
+        color(12);
+        cout << "You do not have enough cash in your account!" << endl;
+        color(15);
+    }
+    else
+    {
+        color(12);
+        cout << "Technical Error!" << endl;
+        color(15);
+    }
+    cout << "New Balance :: " << person[id].balance << endl;
+    cout << "Updated loan :: " << person[id].loan << endl;
+    update_file(person, n);
+}
+
 int accTypeChk(Person *person)
 {
     string type;
@@ -510,6 +576,18 @@ label1:
         cout << setw(43) << left << "| Get Loan"
              << "|" << endl;
     }
+    if (opt == 5)
+    {
+        color(10);
+        cout << setw(43) << left << "> Pay Loan"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(43) << left << "| Pay Loan"
+             << "|" << endl;
+    }
 
     cout << setw(43) << left << "| Go To Main Menu!"
          << "|" << endl;
@@ -526,11 +604,12 @@ label1:
     cout << "| AccountID : " << setw(29) << left << person[id].accountId << "|" << endl;
     cout << "| AccountType : " << setw(27) << left << person[id].accountType << "|" << endl;
     cout << "| Balance : " << setw(31) << left << person[id].balance << "|" << endl;
+    cout << "| Loan : " << setw(34) << left << person[id].loan << "|" << endl;
 
     line(43);
     if (opt == -1 && flip == 0)
     {
-        opt = selection(6);
+        opt = selection(7);
         goto label1;
     }
     return opt;
