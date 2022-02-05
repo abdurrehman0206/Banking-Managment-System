@@ -37,6 +37,8 @@ void siz(short *n);
 bool login(Person *person, short *n, int *id);
 void withdraw(Person *person, short *n);
 void send(Person *person, short *n);
+void get_loan(Person *person, short *n);
+void pay_loan(Person *person, short *n);
 int accTypeChk(Person *person);
 void change_pin(Person *person, short *n);
 void alot_loan(Person *person, short *n);
@@ -86,7 +88,6 @@ void id_assign(int &accNumChk)
     }
     fin.close();
     accNumChk = chk / 7;
-    //accNumChk++;
 }
 
 void read_file(Person **person, short *n)
@@ -229,14 +230,24 @@ bool login(Person *person, short *n, int *id)
     short pass;
     cout << "Enter your accountId :: ";
     cin >> *id;
-    cout << "Enter your account Pin :: ";
-    cin >> pass;
-    if (pass == person[*id].pin)
+    if (*id == person[*id].accountId)
     {
-        return true;
+        cout << "Enter your account Pin :: ";
+        cin >> pass;
+        if (pass == person[*id].pin)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     else
     {
+        color(12);
+        cout << "Technical Issues!" << endl;
+        color(15);
         return false;
     }
 }
