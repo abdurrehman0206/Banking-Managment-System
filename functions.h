@@ -40,9 +40,9 @@ void send(Person *person, short *n);
 int accTypeChk(Person *person);
 void change_pin(Person *person, short *n);
 int selection(int);
-int main_menu(Person *person , short *n);
-int customer_menu(Person *person , short *n);
-
+int main_menu(Person *person, short *n);
+int customer_menu(Person *person, short *n);
+int management_menu(Person *person, short *n);
 //PROTOTYPE
 
 //FUNCTIONS
@@ -536,6 +536,92 @@ label1:
     return opt;
 }
 
+int management_menu(Person *person, short *n)
+{
+
+    bool flip = 0;
+    int opt = -1;
+label1:
+    if (opt == -1)
+    {
+        flip = 0;
+    }
+    else
+    {
+        flip = 1;
+    }
+    system("CLS");
+
+    line(43);
+    if (opt == 1)
+    {
+        color(10);
+        cout << setw(43) << left << "> Add Account "
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(43) << left << "| Add Account"
+             << "|" << endl;
+    }
+
+    if (opt == 2)
+    {
+        color(10);
+        cout << setw(43) << left << "> Modify Account"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(43) << left << "| Modify Account"
+             << "|" << endl;
+    }
+    if (opt == 3)
+    {
+        color(10);
+        cout << setw(43) << left << "> Delete Account"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(43) << left << "| Delete Account"
+             << "|" << endl;
+    }
+
+    if (opt == 4)
+    {
+        color(10);
+        cout << setw(43) << left << "> Alot Loan"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(43) << left << "| Alot Loan"
+             << "|" << endl;
+    }
+
+    cout << setw(43) << left << "| Go To Main Menu!"
+         << "|" << endl;
+
+    cout << setw(43) << left << "| QUIT!"
+         << "|" << endl;
+
+    cout << setw(43) << left << "|"
+         << "|" << endl;
+    line(43);
+    color(15);
+    if (opt == -1 && flip == 0)
+    {
+        opt = selection(6);
+        goto label1;
+    }
+    return opt;
+}
+
 int selection(int yxis)
 {
     unsigned int pos = 0, y = 0;
@@ -583,5 +669,20 @@ int selection(int yxis)
             color(15);
             return pos;
         }
+    }
+}
+
+bool admin_login()
+{
+    string pass;
+    cout << "Enter Admin Password :: ";
+    getline(cin, pass);
+    if (pass == "admin")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
