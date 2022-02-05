@@ -36,6 +36,7 @@ void login(Person *person, short *n, int *id);
 void withdraw(Person *person, short *n);
 void send(Person *person, short *n);
 int accTypeChk(Person *person);
+void change_pin(Person *person, short *n);
 
 //PROTOTYPE
 
@@ -332,4 +333,12 @@ int accTypeChk(Person *person)
         max_amm = 0;
         return max_amm;
     }
+}
+
+void change_pin(Person *person, short *n){
+    int t_pin;
+    cout << "Enter new Pin :: ";
+    cin >> t_pin;
+    person[id].pin = t_pin;
+    update_file(person,n);
 }

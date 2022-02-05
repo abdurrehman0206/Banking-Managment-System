@@ -10,6 +10,7 @@ int main(){
     //i_data(&person, &n);
     o_data(person, &n);
     login(person, &n , &id);
+    change_pin(person, &n);
     withdraw(person, &n);
     send(person, &n);
     o_data(person, &n);
