@@ -27,17 +27,19 @@ HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
 //PROTOTYPE
 void color(int n);
+void g_xy(int x, int y);
 void id_assign(int &accNumChk);
 void read_file(Person **person, short *n);
 void update_file(Person *person, short *n);
 void i_data(Person **person, short *n);
 void o_data(Person *person, short *n);
 void siz(short *n);
-void login(Person *person, short *n, int *id);
+bool login(Person *person, short *n, int *id);
 void withdraw(Person *person, short *n);
 void send(Person *person, short *n);
 int accTypeChk(Person *person);
 void change_pin(Person *person, short *n);
+int selection(int);
 
 //PROTOTYPE
 
@@ -45,6 +47,22 @@ void change_pin(Person *person, short *n);
 void color(int n)
 {
     SetConsoleTextAttribute(console, n);
+}
+void g_xy(int x, int y)
+{
+    COORD cp;
+    cp.X = x;
+    cp.Y = y;
+    SetConsoleCursorPosition(console, cp);
+}
+
+void line(int num)
+{
+    for (int i = 0; i <= num; i++)
+    {
+        cout << "=";
+    }
+    cout << endl;
 }
 
 void id_assign(int &accNumChk)
@@ -201,7 +219,7 @@ void siz(short *n)
     *n = chk / 7;
 }
 
-void login(Person *person, short *n, int *id)
+bool login(Person *person, short *n, int *id)
 {
     short pass;
     cout << "Enter your accountId :: ";
@@ -210,12 +228,11 @@ void login(Person *person, short *n, int *id)
     cin >> pass;
     if (pass == person[*id].pin)
     {
-        cout << "FirstName \t LastName \t AccID \t\t Balance \t Loan" << endl;
-        cout << setw(17) << left << person[*id].fname << setw(16) << left << person[*id].sname << setw(16) << left << person[*id].accountId << setw(16) << left << person[*id].balance << person[*id].loan << endl;
+        return true;
     }
     else
     {
-        cout << "Please Enter Correct Pin!" << endl;
+        return false;
     }
 }
 
@@ -391,11 +408,229 @@ void delete_acc(Person *person, short *n)
                 fout << person[i].fname << " " << person[i].sname << " " << person[i].accountId << " " << person[i].accountType << " " << person[i].balance << " " << person[i].loan << " " << person[i].pin << endl;
             }
         }
-    }else{
+    }
+    else
+    {
         color(12);
         cout << "Technical Error!" << endl;
         color(15);
     }
     fin.close();
-    read_file(&person,n);
+    read_file(&person, n);
+}
+
+int customer_menu(Person *person, short *n)
+{
+
+    bool flip = 0;
+    int opt = -1;
+label1:
+    if (opt == -1)
+    {
+        flip = 0;
+    }
+    else
+    {
+        flip = 1;
+    }
+    system("CLS");
+
+    line(43);
+    if (opt == 1)
+    {
+        color(10);
+        cout << setw(43) << left << "> Withdraw Money"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(43) << left << "| Withdraw Money"
+             << "|" << endl;
+    }
+
+    if (opt == 2)
+    {
+        color(10);
+        cout << setw(43) << left << "> Send Money"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(43) << left << "| Send Money"
+             << "|" << endl;
+    }
+    if (opt == 3)
+    {
+        color(10);
+        cout << setw(43) << left << "> Change Pin"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(43) << left << "| Change Pin"
+             << "|" << endl;
+    }
+
+    if (opt == 4)
+    {
+        color(10);
+        cout << setw(43) << left << "> Get Loan"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(43) << left << "| Get Loan"
+             << "|" << endl;
+    }
+
+    cout << setw(43) << left << "| Go To Main Menu!"
+         << "|" << endl;
+
+    cout << setw(43) << left << "| QUIT!"
+         << "|" << endl;
+
+    cout << setw(43) << left << "|"
+         << "|" << endl;
+    line(43);
+    color(15);
+    cout << "| First Name : " << setw(28) << left << person[id].fname << "|" << endl;
+    cout << "| Last Name : " << setw(29) << left << person[id].sname << "|" << endl;
+    cout << "| AccountID : " << setw(29) << left << person[id].accountId << "|" << endl;
+    cout << "| AccountType : " << setw(27) << left << person[id].accountType << "|" << endl;
+    cout << "| Balance : " << setw(31) << left << person[id].balance << "|" << endl;
+
+    line(43);
+    if (opt == -1 && flip == 0)
+    {
+        opt = selection(6);
+        goto label1;
+    }
+    return opt;
+}
+
+int selection(int yxis)
+{
+    unsigned int pos = 0, y = 0;
+    int opt = -1;
+    g_xy(36, 0);
+    char c;
+    while (true)
+    {
+        color(12);
+        system("pause>nul");
+
+        if (GetAsyncKeyState(VK_DOWN) && y <= yxis)
+        {
+            g_xy(36, y);
+            if (y == 0)
+            {
+                color(15);
+                cout << "====";
+                color(12);
+            }
+            else
+            {
+                cout << "    ";
+            }
+            y++;
+            g_xy(36, y);
+            cout << "<===";
+            pos++;
+            continue;
+        }
+        if (GetAsyncKeyState(VK_UP) && y > 1)
+        {
+
+            g_xy(36, y);
+            cout << "    ";
+            y--;
+            g_xy(36, y);
+            cout << "<===";
+            pos--;
+            continue;
+        }
+
+        if (GetAsyncKeyState(VK_RETURN))
+        {
+            color(15);
+            return pos;
+            // switch (pos)
+            // {
+
+            // default:
+            // {
+            //     break;
+            // }
+
+            // case 1:
+            // {
+            //     opt = 1;
+            //     return opt;
+            //     break;
+            // }
+
+            // case 2:
+            // {
+
+            //     opt = 2;
+            //     return opt;
+            //     break;
+            // }
+
+            // case 3:
+            // {
+            //     opt = 3;
+            //     return opt;
+            //     break;
+            // }
+
+            // case 4:
+            // {
+            //     opt = 4;
+            //     return opt;
+            //     break;
+            // }
+            // case 5:
+            // {
+            //     opt = 5;
+            //     return opt;
+            //     break;
+            // }
+            // case 6:
+            // {
+            //     opt = 6;
+            //     return opt;
+            //     break;
+            // }
+            // case 7:
+            // {
+            //     opt = 7;
+            //     return opt;
+            //     break;
+            // }
+            // case 8:
+            // {
+            //     opt = 8;
+            //     return opt;
+            //     break;
+            // }
+            // case 9:
+            // {
+            //     opt = 9;
+            //     return opt;
+            //     break;
+            // }
+            // case 10:
+            // {
+            //     opt = 10;
+            //     return opt;
+            //     break;
+            // }
+            // }
+        }
+    }
 }
