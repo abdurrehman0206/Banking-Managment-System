@@ -29,6 +29,7 @@ void read_file(Person **person, short *n);
 void i_data(Person **person, short *n);
 void o_data(Person *person, short *n);
 void siz(short *n);
+void login(Person *person, short *n);
 //PROTOTYPE
 
 //FUNCTIONS
@@ -69,7 +70,6 @@ void read_file(Person **person, short *n)
         color(15);
         for (int i = 0; i < *n; i++)
         {
-            //fin.read((char *)&person, sizeof(person));
 
             fin >> t[i].fname;
             fin >> t[i].sname;
