@@ -223,8 +223,9 @@ void login(Person *person, short *n , int *id)
 
 void withdraw(Person *person, short *n)
 {
+    cin.ignore();
     int amount = 0, max_amm;
-    cout << "Enter Amount to withdraw :: " << amount << endl;
+    cout << "Enter Amount to withdraw :: ";
     cin >> amount;
     max_amm = accTypeChk(person);
     if (amount > 0 && amount <= max_amm && person[id].balance > amount)
