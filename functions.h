@@ -40,6 +40,8 @@ void send(Person *person, short *n);
 int accTypeChk(Person *person);
 void change_pin(Person *person, short *n);
 int selection(int);
+int main_menu(Person *person , short *n);
+int customer_menu(Person *person , short *n);
 
 //PROTOTYPE
 
@@ -419,6 +421,28 @@ void delete_acc(Person *person, short *n)
     read_file(&person, n);
 }
 
+int main_menu(Person *person, short *n)
+{
+
+    bool flip = 0;
+    int opt = -1;
+    line(43);
+
+    cout << setw(43) << left << "| Customer Menu"
+         << "|" << endl;
+
+    cout << setw(43) << left << "| Managment Menu"
+         << "|" << endl;
+    cout << setw(43) << left << "| QUIT!"
+         << "|" << endl;
+
+    cout << setw(43) << left << "|"
+         << "|" << endl;
+    line(43);
+    opt = selection(3);
+    return opt;
+}
+
 int customer_menu(Person *person, short *n)
 {
 
@@ -558,6 +582,6 @@ int selection(int yxis)
         {
             color(15);
             return pos;
-                }
+        }
     }
 }
