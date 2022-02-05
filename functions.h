@@ -15,7 +15,7 @@ struct Person
     short pin;
 };
 
-int accNumChk = 1;
+int accNumChk = 0;
 int id = -1;
 short n;
 Person *person = new Person[n];
@@ -91,7 +91,6 @@ void read_file(Person **person, short *n)
     fin.close();
     *person = t;
     delete t;
-    cin.ignore();
 }
 
 void update_file(Person *person, short *n)
@@ -113,7 +112,6 @@ void update_file(Person *person, short *n)
         color(15);
     }
     fout.close();
-    cin.ignore();
 }
 
 void i_data(Person **person, short *n)
