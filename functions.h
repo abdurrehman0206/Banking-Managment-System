@@ -16,7 +16,7 @@ struct Person
 };
 
 int accNumChk = 1;
-int id = 2;
+int id = 1;
 short n;
 Person *person = new Person[n];
 string filename = "accounts.dat";
@@ -230,12 +230,22 @@ void withdraw(Person *person, short *n)
     if (amount > 0 && amount <= max_amm && person[id].balance > amount)
     {
         person[id].balance -= amount;
-        update_file(person, n);
         color(10);
         cout << "Successfully transaction of :: " << amount << endl;
         cout << "Remaining Balance :: " << person[id].balance << endl;
         color(15);
+    }else if(person[id].balance < amount){
+        color(12);
+        cout << "Not Enough Money!" << endl;
+        cout << "Remaining Balance :: " << person[id].balance << endl;
+        color(15);
+    }else if(amount > max_amm){
+        color(12);
+        cout << "Account Type does not allow this amount!" << endl;
+        cout << "Remaining Balance :: " << person[id].balance << endl;
+        color(15);
     }
+    update_file(person, n);
 }
 
 int accTypeChk(Person *person)
