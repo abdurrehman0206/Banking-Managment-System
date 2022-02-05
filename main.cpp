@@ -11,6 +11,7 @@ int main(){
     o_data(person, &n);
     login(person, &n , &id);
     withdraw(person, &n);
+    send(person, &n);
     o_data(person, &n);
     
     system("pause");

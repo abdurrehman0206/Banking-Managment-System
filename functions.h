@@ -28,13 +28,15 @@ HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 void color(int n);
 void id_assign(int &accNumChk);
 void read_file(Person **person, short *n);
+void update_file(Person *person, short *n);
 void i_data(Person **person, short *n);
 void o_data(Person *person, short *n);
 void siz(short *n);
-void login(Person *person, short *n , int *id);
+void login(Person *person, short *n, int *id);
 void withdraw(Person *person, short *n);
+void send(Person *person, short *n);
 int accTypeChk(Person *person);
-void update_file(Person *person, short *n);
+
 //PROTOTYPE
 
 //FUNCTIONS
@@ -197,7 +199,7 @@ void siz(short *n)
     *n = chk / 7;
 }
 
-void login(Person *person, short *n , int *id)
+void login(Person *person, short *n, int *id)
 {
     short pass;
     cout << "Enter your accountId :: ";
@@ -256,6 +258,50 @@ void withdraw(Person *person, short *n)
     update_file(person, n);
 }
 
+void send(Person *person, short *n)
+{
+    int amount = 0, max_amm, r_id;
+    cout << "Enter ID of the Account to send to :: ";
+    cin >> r_id;
+    cout << "Enter Amount to send to " << person[r_id].fname << " " << person[r_id].sname << " :: " << endl;
+    cin >> amount;
+    max_amm = accTypeChk(person);
+    if (amount > 0 && amount <= max_amm && person[id].balance > amount)
+    {
+        person[id].balance -= amount;
+        person[r_id].balance += amount;
+        color(10);
+        cout << "Successfully sent " << amount << " to " << person[r_id].fname << " " << person[r_id].sname << endl;
+        color(15);
+    }
+    else if (person[id].balance < amount)
+    {
+        color(12);
+        cout << "Not Enough Money!" << endl;
+        color(15);
+    }
+    else if (amount > max_amm)
+    {
+        color(12);
+        cout << "Account Type does not allow this amount!" << endl;
+        color(15);
+    }
+    else if (max_amm = 0)
+    {
+        color(12);
+        cout << "Please get your account type updated from the bank!" << endl;
+        color(15);
+    }
+    else
+    {
+        color(12);
+        cout << "Technical Error!" << endl;
+        color(15);
+    }
+    cout << "Remaining Balance :: " << person[id].balance << endl;
+    update_file(person, n);
+}
+
 int accTypeChk(Person *person)
 {
     string type;
@@ -263,7 +309,7 @@ int accTypeChk(Person *person)
     int max_amm;
     if ((strcmpi(type.c_str(), "platinum")) == 0)
     {
-        max_amm = 100000;
+        max_amm = 1000000;
         return max_amm;
     }
     else if ((strcmpi(type.c_str(), "gold")) == 0)
