@@ -9,7 +9,7 @@ using namespace std;
 
 struct Person
 {
-    string fname, sname;
+    string fname, sname , accountType;
     int accountId, balance, loan;
     short pin;
 };
@@ -54,14 +54,14 @@ void id_assign(int &accNumChk)
         }
     }
     fin.close();
-    accNumChk = chk / 6;
+    accNumChk = chk / 7;
 }
 
 void read_file(Person **person, short *n)
 {
     siz(n);
     Person *t = new Person[*n];
-    fin.open(filename, ios::binary);
+    fin.open(filename, ios::in);
     if (fin.is_open())
     {
         color(10);
@@ -74,6 +74,7 @@ void read_file(Person **person, short *n)
             fin >> t[i].fname;
             fin >> t[i].sname;
             fin >> t[i].accountId;
+            fin >> t[i].accountType;
             fin >> t[i].balance;
             fin >> t[i].loan;
             fin >> t[i].pin;
@@ -112,15 +113,16 @@ void i_data(Person **person, short *n)
         getline(cin, t[i].fname);
         cout << "Enter " << t[i].fname << "'s Last Name :: ";
         getline(cin, t[i].sname);
+        cout << "Enter " << t[i].fname << " " << t[i].sname << "'s AccType :: ";
+        getline(cin, t[i].accountType);
         t[i].accountId = accNumChk++;
         t[i].balance = 0;
         t[i].loan = 0;
         t[i].pin = 1111; //default pin set to 1111 can be changed later
         cout << endl;
     }
-    *person = t;
 
-    fout.open(filename, ios::binary | ios::ate | ios::out | ios::app);
+    fout.open(filename, ios::ate | ios::out | ios::app);
     if (fout.is_open())
     {
         color(10);
@@ -129,8 +131,7 @@ void i_data(Person **person, short *n)
         color(15);
         for (int i = 0; i < *n; i++)
         {
-            fout << t[i].fname << " " << t[i].sname << " " << t[i].accountId << " " << t[i].balance << " " << t[i].loan << " " << t[i].pin << endl;
-            //fout.write((char*)&t , sizeof(t));
+            fout << t[i].fname << " " << t[i].sname << " " << t[i].accountId <<" " << t[i].accountType << " " << t[i].balance << " " << t[i].loan << " " << t[i].pin << endl;
         }
     }
     else
@@ -140,6 +141,7 @@ void i_data(Person **person, short *n)
         cout << endl;
         color(15);
     }
+    *person = t;
     delete t;
     fout.close();
     cin.ignore();
@@ -148,10 +150,10 @@ void i_data(Person **person, short *n)
 void o_data(Person *person, short *n)
 {
     read_file(&person, n);
-    cout << "FirstName \t LastName \t AccID \t\t Balance \t Loan" << endl;
+    cout << "FirstName \t LastName \t AccID \t\t AccType \t Balance \t Loan" << endl;
     for (int i = 0; i < *n; i++)
     {
-        cout << setw(17) << left << person[i].fname << setw(16) << left << person[i].sname << setw(16) << left << person[i].accountId << setw(16) << left << person[i].balance << person[i].loan << endl;
+        cout << setw(17) << left << person[i].fname << setw(16) << left << person[i].sname << setw(16) << left << person[i].accountId << setw(16) << left << person[i].accountType << setw(16) << left << person[i].balance << person[i].loan << endl;
     }
     cout << endl;
 }
@@ -171,7 +173,7 @@ void siz(short *n)
         }
     }
     fin.close();
-    *n = chk / 6;
+    *n = chk / 7;
 }
 
 void login(Person *person, short *n)
@@ -190,5 +192,15 @@ void login(Person *person, short *n)
     else
     {
         cout << "Please Enter Correct Pin!" << endl;
+    }
+}
+
+void withdraw(Person *person, short *n)
+{
+    int amount=0;
+    cout << "Enter Amount to withdraw :: " << amount << endl;
+    cin >> amount;
+    if(amount > 0 && amount < 25000){
+
     }
 }
