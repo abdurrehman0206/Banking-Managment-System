@@ -264,7 +264,7 @@ void send(Person *person, short *n)
     int amount = 0, max_amm, r_id;
     cout << "Enter ID of the Account to send to :: ";
     cin >> r_id;
-    cout << "Enter Amount to send to " << person[r_id].fname << " " << person[r_id].sname << " :: " ;
+    cout << "Enter Amount to send to " << person[r_id].fname << " " << person[r_id].sname << " :: ";
     cin >> amount;
     max_amm = accTypeChk(person);
     if (amount > 0 && amount <= max_amm && person[id].balance > amount)
@@ -335,10 +335,39 @@ int accTypeChk(Person *person)
     }
 }
 
-void change_pin(Person *person, short *n){
+void change_pin(Person *person, short *n)
+{
     int t_pin;
     cout << "Enter new Pin :: ";
     cin >> t_pin;
     person[id].pin = t_pin;
-    update_file(person,n);
+    update_file(person, n);
+}
+void modify_acc(Person *person, short *n)
+{
+    int t_id;
+    cout << "Enter ID of account you want to modify :: ";
+    cin >> t_id;
+    cin.ignore();
+    if (t_id <= accNumChk)
+    {
+        cout << setw(17) << left << person[t_id].fname << setw(16) << left << person[t_id].sname << setw(16) << left << person[t_id].accountId << setw(16) << left << person[t_id].accountType << setw(16) << left << person[t_id].balance << person[t_id].loan << endl;
+        cout << "Enter New First Name :: ";
+        getline(cin, person[t_id].fname);
+        cout << "Enter New Last Name for " << person[t_id].fname << " ::";
+        getline(cin, person[t_id].sname);
+        cout << "Enter " << person[t_id].fname << " " << person[t_id].sname << "'s AccType :: ";
+        getline(cin, person[t_id].accountType);
+        update_file(person, n);
+    }
+    else
+    {
+        color(12);
+        cout << "Account does not exist!" << endl;
+        color(15);
+    }
+}
+
+void delete_acc()
+{
 }

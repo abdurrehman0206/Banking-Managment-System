@@ -13,6 +13,7 @@ int main(){
     change_pin(person, &n);
     withdraw(person, &n);
     send(person, &n);
+    modify_acc(person, &n);
     o_data(person, &n);
     
     system("pause");
