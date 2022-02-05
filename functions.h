@@ -16,7 +16,7 @@ struct Person
 };
 
 int accNumChk = 1;
-int id = 1;
+int id = -1;
 short n;
 Person *person = new Person[n];
 string filename = "accounts.dat";
@@ -31,7 +31,7 @@ void read_file(Person **person, short *n);
 void i_data(Person **person, short *n);
 void o_data(Person *person, short *n);
 void siz(short *n);
-void login(Person *person, short *n);
+void login(Person *person, short *n , int *id);
 void withdraw(Person *person, short *n);
 int accTypeChk(Person *person);
 void update_file(Person *person, short *n);
@@ -203,17 +203,17 @@ void siz(short *n)
     *n = chk / 7;
 }
 
-void login(Person *person, short *n)
+void login(Person *person, short *n , int *id)
 {
     short pass;
     cout << "Enter your accountId :: ";
-    cin >> id;
+    cin >> *id;
     cout << "Enter your account Pin :: ";
     cin >> pass;
-    if (pass == person[id].pin)
+    if (pass == person[*id].pin)
     {
         cout << "FirstName \t LastName \t AccID \t\t Balance \t Loan" << endl;
-        cout << setw(17) << left << person[id].fname << setw(16) << left << person[id].sname << setw(16) << left << person[id].accountId << setw(16) << left << person[id].balance << person[id].loan << endl;
+        cout << setw(17) << left << person[*id].fname << setw(16) << left << person[*id].sname << setw(16) << left << person[*id].accountId << setw(16) << left << person[*id].balance << person[*id].loan << endl;
     }
     else
     {

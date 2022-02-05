@@ -9,9 +9,10 @@ int main(){
     
     //i_data(&person, &n);
     o_data(person, &n);
+    login(person, &n , &id);
     withdraw(person, &n);
     o_data(person, &n);
-    //login(person, &n);
+    
     system("pause");
     return 0;
 }
