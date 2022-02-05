@@ -5,6 +5,7 @@
 #include <conio.h>
 #include <windows.h>
 #include <cstring>
+#include <cstdio>
 
 using namespace std;
 
@@ -19,7 +20,7 @@ int accNumChk = 0;
 int id = -1;
 short n;
 Person *person = new Person[n];
-string filename = "accounts.dat";
+const string filename = "accounts.dat";
 ifstream fin;
 ofstream fout;
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -368,6 +369,33 @@ void modify_acc(Person *person, short *n)
     }
 }
 
-void delete_acc()
+void delete_acc(Person *person, short *n)
+
 {
+    int t_id;
+    cout << "Enter ID of account you want to delete :: ";
+    cin >> t_id;
+    //cin.ignore();
+    if (t_id <= accNumChk)
+    {
+        //*n--;
+        fout.open(filename, ios::out | ios::trunc);
+        if (fout.is_open())
+        {
+            for (int i = 0; i < *n; i++)
+            {
+                if (i == t_id)
+                {
+                    continue;
+                }
+                fout << person[i].fname << " " << person[i].sname << " " << person[i].accountId << " " << person[i].accountType << " " << person[i].balance << " " << person[i].loan << " " << person[i].pin << endl;
+            }
+        }
+    }else{
+        color(12);
+        cout << "Technical Error!" << endl;
+        color(15);
+    }
+    fin.close();
+    read_file(&person,n);
 }

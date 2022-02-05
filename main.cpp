@@ -10,10 +10,11 @@ int main(){
     //i_data(&person, &n);
     o_data(person, &n);
     login(person, &n , &id);
-    change_pin(person, &n);
-    withdraw(person, &n);
-    send(person, &n);
-    modify_acc(person, &n);
+    //change_pin(person, &n);
+    //withdraw(person, &n);
+    //send(person, &n);
+    //modify_acc(person, &n);
+    delete_acc(person, &n);
     o_data(person, &n);
     
     system("pause");
