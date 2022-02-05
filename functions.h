@@ -86,6 +86,7 @@ void id_assign(int &accNumChk)
     }
     fin.close();
     accNumChk = chk / 7;
+    accNumChk++;
 }
 
 void read_file(Person **person, short *n)
