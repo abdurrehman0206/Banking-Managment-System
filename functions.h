@@ -69,10 +69,6 @@ void read_file(Person **person, short *n)
     fin.open(filename, ios::in);
     if (fin.is_open())
     {
-        color(10);
-        cout << filename << " access granted!" << endl;
-        cout << endl;
-        color(15);
         for (int i = 0; i < *n; i++)
         {
 
@@ -168,7 +164,7 @@ void i_data(Person **person, short *n)
         cout << endl;
         color(15);
     }
-    *person = t;
+    read_file(person, n);
     delete t;
     fout.close();
     cin.ignore();
@@ -223,7 +219,6 @@ void login(Person *person, short *n , int *id)
 
 void withdraw(Person *person, short *n)
 {
-    cin.ignore();
     int amount = 0, max_amm;
     cout << "Enter Amount to withdraw :: ";
     cin >> amount;
