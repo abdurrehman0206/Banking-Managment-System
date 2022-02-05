@@ -101,7 +101,7 @@ void read_file(Person **person, short *n)
 void update_file(Person *person, short *n)
 {
 
-    fout.open(filename,ios::out);
+    fout.open(filename, ios::out);
     if (fout.is_open())
     {
         for (int i = 0; i < *n; i++)
@@ -232,19 +232,33 @@ void withdraw(Person *person, short *n)
         person[id].balance -= amount;
         color(10);
         cout << "Successfully transaction of :: " << amount << endl;
-        cout << "Remaining Balance :: " << person[id].balance << endl;
-        color(15);
-    }else if(person[id].balance < amount){
-        color(12);
-        cout << "Not Enough Money!" << endl;
-        cout << "Remaining Balance :: " << person[id].balance << endl;
-        color(15);
-    }else if(amount > max_amm){
-        color(12);
-        cout << "Account Type does not allow this amount!" << endl;
-        cout << "Remaining Balance :: " << person[id].balance << endl;
         color(15);
     }
+    else if (person[id].balance < amount)
+    {
+        color(12);
+        cout << "Not Enough Money!" << endl;
+        color(15);
+    }
+    else if (amount > max_amm)
+    {
+        color(12);
+        cout << "Account Type does not allow this amount!" << endl;
+        color(15);
+    }
+    else if (max_amm = 0)
+    {
+        color(12);
+        cout << "Please get your account type updated from the bank!" << endl;
+        color(15);
+    }
+    else
+    {
+        color(12);
+        cout << "Technical Error!" << endl;
+        color(15);
+    }
+    cout << "Remaining Balance :: " << person[id].balance << endl;
     update_file(person, n);
 }
 
@@ -268,16 +282,13 @@ int accTypeChk(Person *person)
         max_amm = 50000;
         return max_amm;
     }
-    else if ((strcmpi(type.c_str(), "gold")) == 0)
+    else if ((strcmpi(type.c_str(), "bronze")) == 0)
     {
         max_amm = 25000;
         return max_amm;
     }
     else
     {
-        color(12);
-        cout << "Please get your account type updated from the bank!" << endl;
-        color(15);
         max_amm = 0;
         return max_amm;
     }
