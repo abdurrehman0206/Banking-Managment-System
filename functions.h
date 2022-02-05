@@ -12,8 +12,8 @@ using namespace std;
 struct Person
 {
     string fname, sname, accountType;
-    int accountId, balance, loan;
-    short pin;
+    int accountId, loan, pin;
+    long long int balance;
 };
 
 int accNumChk = 0;
@@ -39,6 +39,7 @@ void withdraw(Person *person, short *n);
 void send(Person *person, short *n);
 int accTypeChk(Person *person);
 void change_pin(Person *person, short *n);
+void alot_loan(Person *person, short *n);
 int selection(int);
 int main_menu(Person *person, short *n);
 int customer_menu(Person *person, short *n);
@@ -427,6 +428,26 @@ void change_pin(Person *person, short *n)
     cout << "Enter new Pin :: ";
     cin >> t_pin;
     person[id].pin = t_pin;
+    update_file(person, n);
+}
+
+void alot_loan(Person *person, short *n)
+{
+    int amount, t_id;
+    cout << "Enter account ID to alot loan to :: ";
+    cin >> t_id;
+    if (t_id <= accNumChk)
+    {
+        cout << "Enter ammount to add to " << person[t_id].fname << " " << person[t_id].sname << " ::";
+        cin >> amount;
+        person[t_id].loan += amount;
+        person[t_id].balance += amount;
+        color(10);
+        cout << "Successfully added " << amount << " to " << person[t_id].fname << " " << person[t_id].sname << endl;
+        color(15);
+    }
+    cout << "New Balance :: " << person[t_id].balance << endl;
+    cout << "Loan Added :: " << person[t_id].loan << endl;
     update_file(person, n);
 }
 void modify_acc(Person *person, short *n)

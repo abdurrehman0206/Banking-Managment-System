@@ -122,7 +122,7 @@ int main()
                         system("CLS");
                         break;
                     case 4:
-
+                        alot_loan(person, &n);
                         system("pause");
                         system("CLS");
                         break;
