@@ -91,7 +91,7 @@ int main()
                     default:
                         system("CLS");
                         break;
-                    case 6:
+                    case 7:
                         cout << "Are you sure you want to QUIT![y|Y] :: ";
                         cin >> yn;
                         if (yn == 'y' || yn == 'Y')
@@ -119,6 +119,11 @@ int main()
                         system("CLS");
                         break;
                     case 5:
+                        o_data(person, &n);
+                        system("pause");
+                        system("CLS");
+                        break;
+                    case 6:
                         loop_control = false;
                         system("pause");
                         system("CLS");

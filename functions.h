@@ -603,6 +603,18 @@ label1:
         cout << setw(43) << left << "| Alot Loan"
              << "|" << endl;
     }
+    if (opt == 5)
+    {
+        color(10);
+        cout << setw(43) << left << "> Show All Account Database"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(43) << left << "| Show All Account Database"
+             << "|" << endl;
+    }
 
     cout << setw(43) << left << "| Go To Main Menu!"
          << "|" << endl;
@@ -616,7 +628,7 @@ label1:
     color(15);
     if (opt == -1 && flip == 0)
     {
-        opt = selection(6);
+        opt = selection(7);
         goto label1;
     }
     return opt;
