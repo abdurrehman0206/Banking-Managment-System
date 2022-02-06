@@ -7,6 +7,7 @@
 #include <cstring>
 #include <cstdio>
 
+
 using namespace std;
 
 struct Person
