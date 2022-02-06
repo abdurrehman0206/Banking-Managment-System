@@ -680,12 +680,12 @@ label1:
          << "|" << endl;
     line(43);
     color(15);
-    cout << "| First Name : " << setw(28) << left << person[id].fname << "|" << endl;
-    cout << "| Last Name : " << setw(29) << left << person[id].sname << "|" << endl;
-    cout << "| AccountID : " << setw(29) << left << person[id].accountId << "|" << endl;
+    cout << "| First Name  : " << setw(27) << left << person[id].fname << "|" << endl;
+    cout << "| Last Name   : " << setw(27) << left << person[id].sname << "|" << endl;
+    cout << "| AccountID   : " << setw(27) << left << person[id].accountId << "|" << endl;
     cout << "| AccountType : " << setw(27) << left << person[id].accountType << "|" << endl;
-    cout << "| Balance : " << setw(31) << left << person[id].balance << "|" << endl;
-    cout << "| Loan : " << setw(34) << left << person[id].loan << "|" << endl;
+    cout << "| Balance     : " << setw(27) << left << person[id].balance << "|" << endl;
+    cout << "| Loan        : " << setw(27) << left << person[id].loan << "|" << endl;
 
     line(43);
     if (opt == -1 && flip == 0)
@@ -809,7 +809,6 @@ label1:
 int selection(int yxis)
 {
     unsigned int pos = 0, y = 0;
-    int opt = -1;
     g_xy(36, 0);
     char c;
     while (true)
@@ -836,7 +835,7 @@ int selection(int yxis)
             pos++;
             continue;
         }
-        if (GetAsyncKeyState(VK_UP) && y > 1)
+        if (GetAsyncKeyState(VK_UP) && y > 0)
         {
 
             g_xy(36, y);
