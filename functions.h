@@ -101,7 +101,8 @@ void i_data(Person **person, short *n)
         t[i].accountId = accNumChk++;
         t[i].balance = 0;
         t[i].loan = 0;
-        t[i].pin = 1111; //default pin set to 1111 can be changed later
+        cout << "Enter " << t[i].fname << " " << t[i].sname << "'s Pin :: ";
+        cin >> t[i].pin;
         cout << endl;
     }
 
