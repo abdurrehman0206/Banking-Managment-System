@@ -47,6 +47,7 @@ int main_menu(Person *person, short *n);
 int customer_menu(Person *person, short *n);
 int management_menu(Person *person, short *n);
 bool admin_login();
+int id_chk(Person *person, short *n, int t_id);
 //PROTOTYPE
 
 //FUNCTIONS
@@ -228,27 +229,24 @@ void siz(short *n)
 bool login(Person *person, short *n, int *id)
 {
     short pass;
+    int t_id;
     cout << "Enter your accountId :: ";
-    cin >> *id;
-    if (*id == person[*id].accountId)
+    cin >> t_id;
+    t_id = id_chk(person, n, t_id);
+    if (t_id == -1)
     {
-        cout << "Enter your account Pin :: ";
-        cin >> pass;
-        if (pass == person[*id].pin)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return false;
+    }
+    *id = t_id;
+
+    cout << "Enter your account Pin :: ";
+    cin >> pass;
+    if (pass == person[*id].pin)
+    {
+        return true;
     }
     else
     {
-        color(12);
-        cout << "Account Does Not Exist!" << endl;
-        system("CLS");
-        color(15);
         return false;
     }
 }
@@ -299,6 +297,11 @@ void send(Person *person, short *n)
     int amount = 0, max_amm, r_id;
     cout << "Enter ID of the Account to send to :: ";
     cin >> r_id;
+    r_id = id_chk(person, n, r_id);
+    if (r_id == -1)
+    {
+        return;
+    }
     cout << "Enter Amount to send to " << person[r_id].fname << " " << person[r_id].sname << " :: ";
     cin >> amount;
     max_amm = accTypeChk(person);
@@ -449,6 +452,11 @@ void alot_loan(Person *person, short *n)
     int amount, t_id;
     cout << "Enter account ID to alot loan to :: ";
     cin >> t_id;
+    t_id = id_chk(person, n, t_id);
+    if (t_id == -1)
+    {
+        return;
+    }
     if (t_id <= accNumChk)
     {
         cout << "Enter ammount to add to " << person[t_id].fname << " " << person[t_id].sname << " ::";
@@ -468,6 +476,11 @@ void modify_acc(Person *person, short *n)
     int t_id;
     cout << "Enter ID of account you want to modify :: ";
     cin >> t_id;
+    t_id = id_chk(person, n, t_id);
+    if (t_id == -1)
+    {
+        return;
+    }
     cin.ignore();
     if (t_id <= accNumChk)
     {
@@ -494,7 +507,12 @@ void delete_acc(Person *person, short *n)
     int t_id;
     cout << "Enter ID of account you want to delete :: ";
     cin >> t_id;
-    //cin.ignore();
+    t_id = id_chk(person, n, t_id);
+    if (t_id == -1)
+    {
+        return;
+    }
+    cin.ignore();
     if (t_id <= accNumChk)
     {
         //*n--;
@@ -810,4 +828,16 @@ bool admin_login()
     {
         return false;
     }
+}
+
+int id_chk(Person *person, short *n, int t_id)
+{
+    for (int i = 0; i < *n; i++)
+    {
+        if (person[i].accountId == t_id)
+        {
+            return i;
+        }
+    }
+    return -1;
 }
