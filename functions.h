@@ -369,6 +369,8 @@ void pay_loan(Person *person, short *n)
         color(10);
         cout << "Successfully Paid Loan of " << amount << endl;
         color(15);
+        cout << "New Balance :: " << person[id].balance << endl;
+        cout << "Updated loan :: " << person[id].loan << endl;
     }
     else if (amount > person[id].loan)
     {
@@ -388,8 +390,7 @@ void pay_loan(Person *person, short *n)
         cout << "Technical Error!" << endl;
         color(15);
     }
-    cout << "New Balance :: " << person[id].balance << endl;
-    cout << "Updated loan :: " << person[id].loan << endl;
+
     update_file(person, n);
 }
 
@@ -456,9 +457,10 @@ void alot_loan(Person *person, short *n)
         color(10);
         cout << "Successfully added " << amount << " to " << person[t_id].fname << " " << person[t_id].sname << endl;
         color(15);
+        cout << "New Balance :: " << person[t_id].balance << endl;
+        cout << "Loan Added :: " << person[t_id].loan << endl;
     }
-    cout << "New Balance :: " << person[t_id].balance << endl;
-    cout << "Loan Added :: " << person[t_id].loan << endl;
+    
     update_file(person, n);
 }
 void modify_acc(Person *person, short *n)
@@ -492,12 +494,14 @@ void modify_acc(Person *person, short *n)
         cout << "Account does not exist!" << endl;
         color(15);
     }
+    read_file(&person, n, accNumChk);
 }
 
 void delete_acc(Person *person, short *n)
 
 {
     int t_id;
+    int t = 0;
     cout << "Enter ID of account you want to delete :: ";
     cin >> t_id;
     t_id = id_chk(person, n, t_id);
@@ -519,6 +523,13 @@ void delete_acc(Person *person, short *n)
             {
                 if (i == t_id)
                 {
+                    person[i].fname = "";
+                    person[i].sname = "";
+                    person[i].accountId = -1;
+                    person[i].accountType = "";
+                    person[i].balance = 0;
+                    person[i].loan = 0;
+                    person[i].pin = 0;
                     continue;
                 }
                 fout << person[i].fname << " " << person[i].sname << " " << person[i].accountId << " " << person[i].accountType << " " << person[i].balance << " " << person[i].loan << " " << person[i].pin << endl;
