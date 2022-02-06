@@ -13,7 +13,7 @@ struct Person
 {
     string fname, sname, accountType;
     int accountId, loan, pin;
-    long long int balance;
+    unsigned long long int balance;
 };
 
 int accNumChk = 0;
@@ -28,7 +28,7 @@ HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 //PROTOTYPE
 void color(int n);
 void g_xy(int x, int y);
-void read_file(Person **person, short *n ,int &accNumChk);
+void read_file(Person **person, short *n, int &accNumChk);
 void update_file(Person *person, short *n);
 void i_data(Person **person, short *n);
 void o_data(Person *person, short *n);
@@ -71,8 +71,7 @@ void line(int num)
     cout << endl;
 }
 
-
-void read_file(Person **person, short *n,int &accNumChk)
+void read_file(Person **person, short *n, int &accNumChk)
 {
     siz(n);
     Person *t = new Person[*n];
@@ -99,7 +98,7 @@ void read_file(Person **person, short *n,int &accNumChk)
         color(15);
     }
     fin.close();
-    accNumChk = (t[*n - 1].accountId)+1;
+    accNumChk = (t[*n - 1].accountId) + 1;
     *person = t;
     delete t;
 }
@@ -173,7 +172,7 @@ void i_data(Person **person, short *n)
         cout << endl;
         color(15);
     }
-    read_file(person, n , accNumChk);
+    read_file(person, n, accNumChk);
     delete t;
     fout.close();
     cin.ignore();
@@ -181,7 +180,7 @@ void i_data(Person **person, short *n)
 
 void o_data(Person *person, short *n)
 {
-    read_file(&person, n , accNumChk);
+    read_file(&person, n, accNumChk);
     cout << "FirstName \t LastName \t AccID \t\t AccType \t Balance \t Loan" << endl;
     for (int i = 0; i < *n; i++)
     {
@@ -194,18 +193,18 @@ void siz(short *n)
 {
     int chk = 0;
     string garbage;
-    fin.open(filename);
+    fin.open(filename, ios::in);
 
     if (fin.is_open())
     {
         while (!fin.eof())
         {
-            fin >> garbage;
+            getline(fin, garbage);
             chk++;
         }
     }
     fin.close();
-    *n = chk / 7;
+    *n = --chk;
 }
 
 bool login(Person *person, short *n, int *id)
