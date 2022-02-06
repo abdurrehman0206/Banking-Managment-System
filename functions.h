@@ -5,6 +5,8 @@ void color(int n)
 {
     SetConsoleTextAttribute(console, n);
 }
+
+//For Cursor Location
 void g_xy(int x, int y)
 {
     COORD cp;
@@ -13,6 +15,7 @@ void g_xy(int x, int y)
     SetConsoleCursorPosition(console, cp);
 }
 
+//For printing line
 void line(int num)
 {
     for (int i = 0; i <= num; i++)
@@ -22,6 +25,7 @@ void line(int num)
     cout << endl;
 }
 
+//Reads the file that holds all the data
 void read_file(Person **person, short *n, int &accNumChk)
 {
     siz(n);
@@ -54,6 +58,7 @@ void read_file(Person **person, short *n, int &accNumChk)
     delete t;
 }
 
+//updates the file if local changes are made
 void update_file(Person *person, short *n)
 {
 
@@ -76,6 +81,7 @@ void update_file(Person *person, short *n)
     read_file(&person, n, accNumChk);
 }
 
+//adding account
 void i_data(Person **person, short *n)
 {
     short inp;
@@ -127,6 +133,7 @@ void i_data(Person **person, short *n)
     cin.ignore();
 }
 
+//output all the data stored
 void o_data(Person *person, short *n)
 {
     read_file(&person, n, accNumChk);
@@ -138,6 +145,7 @@ void o_data(Person *person, short *n)
     cout << endl;
 }
 
+//check the number of customers in the database
 void siz(short *n)
 {
     int chk = 0;
@@ -156,6 +164,7 @@ void siz(short *n)
     *n = --chk;
 }
 
+//for customer login (pin based)
 bool login(Person *person, short *n, int *id)
 {
     short pass;
@@ -183,6 +192,8 @@ bool login(Person *person, short *n, int *id)
         return false;
     }
 }
+
+//adding money to customer account
 void add_money(Person *person, short *n)
 {
     int t_id;
@@ -206,6 +217,7 @@ void add_money(Person *person, short *n)
     update_file(person, n);
 }
 
+//for customer to withdraw money
 void withdraw(Person *person, short *n)
 {
     int amount = 0, max_amm;
@@ -248,6 +260,7 @@ void withdraw(Person *person, short *n)
     update_file(person, n);
 }
 
+//for customer to send money to another account
 void send(Person *person, short *n)
 {
     int amount = 0, max_amm, r_id;
@@ -301,6 +314,7 @@ void send(Person *person, short *n)
     update_file(person, n);
 }
 
+//for customer to get a loan
 void get_loan(Person *person, short *n)
 {
     int amount = 0, max_amm;
@@ -330,6 +344,7 @@ void get_loan(Person *person, short *n)
     update_file(person, n);
 }
 
+//for customer to pay loan
 void pay_loan(Person *person, short *n)
 {
     int amount = 0, max_amm;
@@ -368,6 +383,7 @@ void pay_loan(Person *person, short *n)
     update_file(person, n);
 }
 
+//checks the customers Account Type
 int accTypeChk(Person *person)
 {
     string type;
@@ -400,6 +416,7 @@ int accTypeChk(Person *person)
     }
 }
 
+//for customer to change pin
 void change_pin(Person *person, short *n)
 {
     int t_pin;
@@ -409,6 +426,7 @@ void change_pin(Person *person, short *n)
     update_file(person, n);
 }
 
+//for management to alot loan to an account
 void alot_loan(Person *person, short *n)
 {
     int amount, t_id;
@@ -437,6 +455,8 @@ void alot_loan(Person *person, short *n)
 
     update_file(person, n);
 }
+
+//for management to modify an account
 void modify_acc(Person *person, short *n)
 {
     int t_id;
@@ -471,6 +491,7 @@ void modify_acc(Person *person, short *n)
     read_file(&person, n, accNumChk);
 }
 
+//for management to delete accounts
 void delete_acc(Person *person, short *n)
 
 {
@@ -520,6 +541,7 @@ void delete_acc(Person *person, short *n)
     read_file(&person, n, accNumChk);
 }
 
+//main menu 
 int main_menu(Person *person, short *n)
 {
 
@@ -542,6 +564,7 @@ int main_menu(Person *person, short *n)
     return opt;
 }
 
+//customer menu
 int customer_menu(Person *person, short *n)
 {
 
@@ -648,6 +671,7 @@ label1:
     return opt;
 }
 
+//management menu
 int management_menu(Person *person, short *n)
 {
 
@@ -758,6 +782,7 @@ label1:
     return opt;
 }
 
+//for scrolling selection
 int selection(int yxis)
 {
     unsigned int pos = 0, y = 0;
@@ -807,6 +832,7 @@ int selection(int yxis)
     }
 }
 
+//for management login
 bool admin_login()
 {
     string pass;
@@ -822,6 +848,7 @@ bool admin_login()
     }
 }
 
+//account id check 
 int id_chk(Person *person, short *n, int t_id)
 {
     for (int i = 0; i < *n; i++)
