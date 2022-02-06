@@ -85,7 +85,7 @@ int main()
         case 2:
             loop_control = true;
             chk = admin_login();
-            cin.ignore();
+           // cin.ignore();
             if (chk == true)
             {
                 do

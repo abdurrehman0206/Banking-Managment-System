@@ -217,6 +217,9 @@ bool login(Person *person, short *n, int *id)
     t_id = id_chk(person, n, t_id);
     if (t_id == -1)
     {
+        color(12);
+        cout << "Account Does Not Exist !" << endl;
+        color(15);
         return false;
     }
     *id = t_id;
@@ -282,6 +285,9 @@ void send(Person *person, short *n)
     r_id = id_chk(person, n, r_id);
     if (r_id == -1)
     {
+        color(12);
+        cout << "Account Does Not Exist !" << endl;
+        color(15);
         return;
     }
     cout << "Enter Amount to send to " << person[r_id].fname << " " << person[r_id].sname << " :: ";
@@ -437,6 +443,9 @@ void alot_loan(Person *person, short *n)
     t_id = id_chk(person, n, t_id);
     if (t_id == -1)
     {
+        color(12);
+        cout << "Account Does Not Exist !" << endl;
+        color(15);
         return;
     }
     if (t_id <= accNumChk)
@@ -461,6 +470,9 @@ void modify_acc(Person *person, short *n)
     t_id = id_chk(person, n, t_id);
     if (t_id == -1)
     {
+        color(12);
+        cout << "Account Does Not Exist !" << endl;
+        color(15);
         return;
     }
     cin.ignore();
@@ -492,12 +504,15 @@ void delete_acc(Person *person, short *n)
     t_id = id_chk(person, n, t_id);
     if (t_id == -1)
     {
+        color(12);
+        cout << "Account Does Not Exist !" << endl;
+        color(15);
         return;
     }
     //cin.ignore();
     if (t_id <= accNumChk)
     {
-        //*n--;
+
         fout.open(filename, ios::out | ios::trunc);
         if (fout.is_open())
         {
