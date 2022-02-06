@@ -7,7 +7,6 @@
 #include <cstring>
 #include <cstdio>
 
-
 using namespace std;
 
 struct Person
@@ -35,6 +34,7 @@ void i_data(Person **person, short *n);
 void o_data(Person *person, short *n);
 void siz(short *n);
 bool login(Person *person, short *n, int *id);
+void add_money(Person *person, short *n);
 void withdraw(Person *person, short *n);
 void send(Person *person, short *n);
 void get_loan(Person *person, short *n);
@@ -94,7 +94,7 @@ void read_file(Person **person, short *n, int &accNumChk)
     else
     {
         color(12);
-        cout << "File access denied!" << endl;
+        cout << "Remote Database Access Failed!" << endl;
         cout << endl;
         color(15);
     }
@@ -123,6 +123,7 @@ void update_file(Person *person, short *n)
         color(15);
     }
     fout.close();
+    read_file(&person, n, accNumChk);
 }
 
 void i_data(Person **person, short *n)
@@ -157,10 +158,6 @@ void i_data(Person **person, short *n)
     fout.open(filename, ios::ate | ios::out | ios::app);
     if (fout.is_open())
     {
-        color(10);
-        cout << filename << " access granted!" << endl;
-        cout << endl;
-        color(15);
         for (int i = 0; i < *n; i++)
         {
             fout << t[i].fname << " " << t[i].sname << " " << t[i].accountId << " " << t[i].accountType << " " << t[i].balance << " " << t[i].loan << " " << t[i].pin << endl;
@@ -169,7 +166,7 @@ void i_data(Person **person, short *n)
     else
     {
         color(12);
-        cout << "File access denied!" << endl;
+        cout << "Remote Database Access Failed!" << endl;
         cout << endl;
         color(15);
     }
@@ -235,6 +232,28 @@ bool login(Person *person, short *n, int *id)
         return false;
     }
 }
+void add_money(Person *person, short *n)
+{
+    int t_id;
+    int amount;
+    cout << "Enter Account ID to add money to :: ";
+    cin >> t_id;
+    t_id = id_chk(person, n, t_id);
+    if (t_id == -1)
+    {
+        color(12);
+        cout << "Account Does Not Exist !" << endl;
+        color(15);
+        return;
+    }
+    cout << "Enter amount to add to " << person[t_id].fname << " " << person[t_id].sname << " :: ";
+    cin >> amount;
+    person[t_id].balance += amount;
+    color(10);
+    cout << "Successfully Added :: " << amount << " to " << person[t_id].fname << " " << person[t_id].sname << endl;
+    color(15);
+    update_file(person, n);
+}
 
 void withdraw(Person *person, short *n)
 {
@@ -247,6 +266,7 @@ void withdraw(Person *person, short *n)
         person[id].balance -= amount;
         color(10);
         cout << "Successfully transaction of :: " << amount << endl;
+        cout << "Remaining Balance :: " << person[id].balance << endl;
         color(15);
     }
     else if (person[id].balance < amount)
@@ -273,7 +293,7 @@ void withdraw(Person *person, short *n)
         cout << "Technical Error!" << endl;
         color(15);
     }
-    cout << "Remaining Balance :: " << person[id].balance << endl;
+
     update_file(person, n);
 }
 
@@ -299,6 +319,7 @@ void send(Person *person, short *n)
         person[r_id].balance += amount;
         color(10);
         cout << "Successfully sent " << amount << " to " << person[r_id].fname << " " << person[r_id].sname << endl;
+        cout << "Remaining Balance :: " << person[r_id].balance << endl;
         color(15);
     }
     else if (person[id].balance < amount)
@@ -325,7 +346,7 @@ void send(Person *person, short *n)
         cout << "Technical Error!" << endl;
         color(15);
     }
-    cout << "Remaining Balance :: " << person[id].balance << endl;
+
     update_file(person, n);
 }
 
@@ -344,6 +365,8 @@ void get_loan(Person *person, short *n)
         person[id].loan += amount;
         color(10);
         cout << "Successfully Took Loan of " << amount << endl;
+        cout << "New Balance :: " << person[id].balance << endl;
+        cout << "Loan Added :: " << person[id].loan << endl;
         color(15);
     }
     else
@@ -352,8 +375,6 @@ void get_loan(Person *person, short *n)
         cout << "Technical Error!" << endl;
         color(15);
     }
-    cout << "New Balance :: " << person[id].balance << endl;
-    cout << "Loan Added :: " << person[id].loan << endl;
     update_file(person, n);
 }
 
@@ -461,7 +482,7 @@ void alot_loan(Person *person, short *n)
         cout << "New Balance :: " << person[t_id].balance << endl;
         cout << "Loan Added :: " << person[t_id].loan << endl;
     }
-    
+
     update_file(person, n);
 }
 void modify_acc(Person *person, short *n)
@@ -729,8 +750,20 @@ label1:
         cout << setw(43) << left << "| Delete Account"
              << "|" << endl;
     }
-
     if (opt == 4)
+    {
+        color(10);
+        cout << setw(43) << left << "> Add Money"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(43) << left << "| Add Money"
+             << "|" << endl;
+    }
+
+    if (opt == 5)
     {
         color(10);
         cout << setw(43) << left << "> Alot Loan"
@@ -742,7 +775,7 @@ label1:
         cout << setw(43) << left << "| Alot Loan"
              << "|" << endl;
     }
-    if (opt == 5)
+    if (opt == 6)
     {
         color(10);
         cout << setw(43) << left << "> Show All Account Database"
@@ -767,7 +800,7 @@ label1:
     color(15);
     if (opt == -1 && flip == 0)
     {
-        opt = selection(7);
+        opt = selection(8);
         goto label1;
     }
     return opt;

@@ -99,7 +99,7 @@ int main()
                     default:
                         system("CLS");
                         break;
-                    case 7:
+                    case 8:
                         cout << "Are you sure you want to QUIT![y|Y] :: ";
                         cin >> yn;
                         if (yn == 'y' || yn == 'Y')
@@ -123,16 +123,21 @@ int main()
                         system("CLS");
                         break;
                     case 4:
-                        alot_loan(person, &n);
+                        add_money(person, &n);
                         system("pause");
                         system("CLS");
                         break;
                     case 5:
-                        o_data(person, &n);
+                        alot_loan(person, &n);
                         system("pause");
                         system("CLS");
                         break;
                     case 6:
+                        o_data(person, &n);
+                        system("pause");
+                        system("CLS");
+                        break;
+                    case 7:
                         loop_control = false;
                         system("pause");
                         system("CLS");
