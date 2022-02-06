@@ -1,1 +1,49 @@
-
+Added Person Entity with Bank Details
+Added File Handling For Data Storage
+Added Input Output of Data
+Added Automatic AccountID Assignment
+Added Dynamic Memory Allocation
+Fixed Automatic AccountID Assignment
+Fixed Memory Leaks 
+Added Pin Code for Personal Accounts
+Added BaseWork for Login System
+Added Account Types (i.e Platinum , Gold , Silver , Bronze)
+Added Withdraw Function
+Added Max Allowable Amount To Withdraw Based on AccType
+Implemented Max Allowable into Withdraw
+Updated Error Handling
+Added Send Function
+Added Modify Account Function
+Added Delete Account Function
+Added Change Pin Function
+Added Menu
+Updated Login System
+Added Customer Menu
+Added Main Menu
+Fixed Minor Stream Issues
+Added Management Menu
+Implemented All Menus inside Main Menu
+Implemented Menu Rotation
+Fixed Issues With Scrolling Menu
+Added Admin Login For Management
+Added Loans Function
+Implemented Customer Based Loan Taking and Paying
+Fixed Menu Issues
+Added Management Loan
+Fixed Account Assignment
+Fixed Account Assignment (2)
+Fixed File Write
+Fixed Login Flaw
+Fixed Minor UI Issues
+Fixed Account ID issues after database Modification
+Fixed Account Existence Flaw
+Fixed UI Issues
+Fixed Memory Leaks
+Fixed AutomatedAssignID
+Removed Separate Function for AutomatedAssignID
+Implemented AutoAssignID with read_file
+Added Better UI for Login
+Fixed Size Check
+Fixed Database Sync Issues After Modification
+Added Add Money function for Management
+Updated UI , Minor Fixes
