@@ -28,8 +28,7 @@ HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 //PROTOTYPE
 void color(int n);
 void g_xy(int x, int y);
-void id_assign(int &accNumChk);
-void read_file(Person **person, short *n);
+void read_file(Person **person, short *n ,int &accNumChk);
 void update_file(Person *person, short *n);
 void i_data(Person **person, short *n);
 void o_data(Person *person, short *n);
@@ -72,26 +71,8 @@ void line(int num)
     cout << endl;
 }
 
-void id_assign(int &accNumChk)
-{
-    string garbage;
-    int chk = 0;
 
-    fin.open(filename);
-
-    if (fin.is_open())
-    {
-        while (!fin.eof())
-        {
-            fin >> garbage;
-            chk++;
-        }
-    }
-    fin.close();
-    accNumChk = chk / 7;
-}
-
-void read_file(Person **person, short *n)
+void read_file(Person **person, short *n,int &accNumChk)
 {
     siz(n);
     Person *t = new Person[*n];
@@ -118,6 +99,7 @@ void read_file(Person **person, short *n)
         color(15);
     }
     fin.close();
+    accNumChk = (t[*n - 1].accountId)+1;
     *person = t;
     delete t;
 }
@@ -191,7 +173,7 @@ void i_data(Person **person, short *n)
         cout << endl;
         color(15);
     }
-    read_file(person, n);
+    read_file(person, n , accNumChk);
     delete t;
     fout.close();
     cin.ignore();
@@ -199,7 +181,7 @@ void i_data(Person **person, short *n)
 
 void o_data(Person *person, short *n)
 {
-    read_file(&person, n);
+    read_file(&person, n , accNumChk);
     cout << "FirstName \t LastName \t AccID \t\t AccType \t Balance \t Loan" << endl;
     for (int i = 0; i < *n; i++)
     {
@@ -512,7 +494,7 @@ void delete_acc(Person *person, short *n)
     {
         return;
     }
-    cin.ignore();
+    //cin.ignore();
     if (t_id <= accNumChk)
     {
         //*n--;
@@ -536,7 +518,7 @@ void delete_acc(Person *person, short *n)
         color(15);
     }
     fin.close();
-    read_file(&person, n);
+    read_file(&person, n, accNumChk);
 }
 
 int main_menu(Person *person, short *n)

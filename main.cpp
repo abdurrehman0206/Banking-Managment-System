@@ -3,8 +3,8 @@
 int main()
 {
     
-    read_file(&person, &n);
-    id_assign(accNumChk);
+    read_file(&person, &n , accNumChk);
+
     int opt, main_opt;
     char yn;
     bool chk;
