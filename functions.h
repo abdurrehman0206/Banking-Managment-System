@@ -1,29 +1,8 @@
-#include "data.h"
+#include "prototype.h"
 
 // FUNCTIONS
-void color(int n)
-{
-    SetConsoleTextAttribute(console, n);
-}
 
-// For Cursor Location
-void g_xy(int x, int y)
-{
-    COORD cp;
-    cp.X = x;
-    cp.Y = y;
-    SetConsoleCursorPosition(console, cp);
-}
-
-// For printing line
-void line(int num)
-{
-    for (int i = 0; i <= num; i++)
-    {
-        cout << "=";
-    }
-    cout << endl;
-}
+//======Real Time Updating=====//
 
 // Reads the file that holds all the data
 void read_file(Person **person, short *n, int &accNumChk)
@@ -81,147 +60,9 @@ void update_file(Person *person, short *n)
     read_file(&person, n, accNumChk);
 }
 
-// adding account
-void i_data(Person **person, short *n)
-{
-    short inp;
-    cout << "Input ::" << endl;
-    cout << "Enter Number of Persons to add :: ";
-    cin >> inp;
-    if (inp == 0)
-    {
-        return;
-    }
-    *n = inp;
-    Person *t = new Person[inp];
-    cout << endl;
-    cin.ignore();
-    for (int i = 0; i < *n; i++)
-    {
-        cout << "Enter Persons First Name :: ";
-        getline(cin, t[i].fname);
-        cout << "Enter " << t[i].fname << "'s Last Name :: ";
-        getline(cin, t[i].sname);
-        cout << "Enter " << t[i].fname << " " << t[i].sname << "'s AccType :: ";
-        getline(cin, t[i].accountType);
-        t[i].accountId = accNumChk++;
-        t[i].balance = 0;
-        t[i].loan = 0;
-        cout << "Enter " << t[i].fname << " " << t[i].sname << "'s Pin :: ";
-        cin >> t[i].pin;
-        cout << endl;
-    }
+//======Real Time Updating=====//
 
-    fout.open(filename, ios::ate | ios::out | ios::app);
-    if (fout.is_open())
-    {
-        for (int i = 0; i < *n; i++)
-        {
-            fout << t[i].fname << " " << t[i].sname << " " << t[i].accountId << " " << t[i].accountType << " " << t[i].balance << " " << t[i].loan << " " << t[i].pin << endl;
-        }
-    }
-    else
-    {
-        color(12);
-        cout << "Remote Database Access Failed!" << endl;
-        cout << endl;
-        color(15);
-    }
-    read_file(person, n, accNumChk);
-    delete t;
-    fout.close();
-    cin.ignore();
-}
-
-// output all the data stored
-void o_data(Person *person, short *n)
-{
-    read_file(&person, n, accNumChk);
-    cout << "FirstName \t LastName \t AccID \t\t AccType \t Balance \t Loan" << endl;
-    for (int i = 0; i < *n; i++)
-    {
-        cout << setw(17) << left << person[i].fname << setw(16) << left << person[i].sname << setw(16) << left << person[i].accountId << setw(16) << left << person[i].accountType << setw(16) << left << person[i].balance << person[i].loan << endl;
-    }
-    cout << endl;
-}
-
-// check the number of customers in the database
-void siz(short *n)
-{
-    int chk = 0;
-    string garbage;
-    fin.open(filename, ios::in);
-
-    if (fin.is_open())
-    {
-        while (!fin.eof())
-        {
-            getline(fin, garbage);
-            chk++;
-        }
-    }
-    fin.close();
-    *n = --chk;
-}
-
-// for customer login (pin based)
-bool login(Person *person, short *n, int *id)
-{
-    short pass;
-    int t_id;
-    cout << "Enter your accountId :: ";
-    cin >> t_id;
-    t_id = id_chk(person, n, t_id);
-    if (t_id == -1)
-    {
-        color(12);
-        cout << "Account Does Not Exist !" << endl;
-        color(15);
-        return false;
-    }
-    *id = t_id;
-
-    cout << "Enter your account Pin :: ";
-    cin >> pass;
-    if (pass == person[*id].pin)
-    {
-        color(10);
-        cout << "Login Successful !" << endl;
-        color(15);
-        return true;
-    }
-    else
-    {
-        color(12);
-        cout << "Login Failed !" << endl;
-        color(15);
-        return false;
-    }
-}
-
-// adding money to customer account
-void add_money(Person *person, short *n)
-{
-    int t_id;
-    int amount;
-    cout << "Enter Account ID to add money to :: ";
-    cin >> t_id;
-    t_id = id_chk(person, n, t_id);
-    if (t_id == -1)
-    {
-        color(12);
-        cout << "Account Does Not Exist !" << endl;
-        color(15);
-        return;
-    }
-    cout << "Enter amount to add to " << person[t_id].fname << " " << person[t_id].sname << " :: ";
-    cin >> amount;
-    person[t_id].balance += amount;
-    color(10);
-    cout << "Successfully Added :: " << amount << " to " << person[t_id].fname << " " << person[t_id].sname << endl;
-    color(15);
-    update_file(person, n);
-}
+//=======Customer Functions=========//
 
 // for customer to withdraw money
 void withdraw(Person *person, short *n)
@@ -483,39 +324,6 @@ void pay_loan(Person *person, short *n)
     update_file(person, n);
 }
 
-// checks the customers Account Type
-int accTypeChk(Person *person)
-{
-    string type;
-    type = (person[id].accountType);
-    int max_amm;
-    if ((strcmpi(type.c_str(), "platinum")) == 0)
-    {
-        max_amm = 1000000;
-        return max_amm;
-    }
-    else if ((strcmpi(type.c_str(), "gold")) == 0)
-    {
-        max_amm = 75000;
-        return max_amm;
-    }
-    else if ((strcmpi(type.c_str(), "silver")) == 0)
-    {
-        max_amm = 50000;
-        return max_amm;
-    }
-    else if ((strcmpi(type.c_str(), "bronze")) == 0)
-    {
-        max_amm = 25000;
-        return max_amm;
-    }
-    else
-    {
-        max_amm = 0;
-        return max_amm;
-    }
-}
-
 // for customer to change pin
 void change_pin(Person *person, short *n)
 {
@@ -523,6 +331,161 @@ void change_pin(Person *person, short *n)
     cout << "Enter new Pin :: ";
     cin >> t_pin;
     person[id].pin = t_pin;
+    update_file(person, n);
+}
+
+// Print customer statement
+void print_statement(Person *person, short *n)
+{
+
+    cout << "Statement for " << person[id].fname << " " << person[id].sname << endl;
+    cout << endl;
+    string line;
+    string statfile = "statement-";
+    statfile = statfile.append(to_string(person[id].accountId));
+    statfile += ".txt";
+    fin.open(statfile, ios::in);
+    if (fin.is_open())
+    {
+        while (!fin.eof())
+        {
+            getline(fin, line);
+            cout << line << endl;
+        }
+    }
+    else
+    {
+        color(12);
+        cout << "Failed to retreive statement!" << endl;
+        color(15);
+    }
+    fin.close();
+}
+
+// for customer login (pin based)
+bool login(Person *person, short *n, int *id)
+{
+    short pass;
+    int t_id;
+    cout << "Enter your accountId :: ";
+    cin >> t_id;
+    t_id = id_chk(person, n, t_id);
+    if (t_id == -1)
+    {
+        color(12);
+        cout << "Account Does Not Exist !" << endl;
+        color(15);
+        return false;
+    }
+    *id = t_id;
+
+    cout << "Enter your account Pin :: ";
+    cin >> pass;
+    if (pass == person[*id].pin)
+    {
+        color(10);
+        cout << "Login Successful !" << endl;
+        color(15);
+        return true;
+    }
+    else
+    {
+        color(12);
+        cout << "Login Failed !" << endl;
+        color(15);
+        return false;
+    }
+}
+
+//=======Customer Functions=========//
+
+//=======Admin Functions=========//
+
+// adding accounts to database
+void i_data(Person **person, short *n)
+{
+    short inp;
+    cout << "Input ::" << endl;
+    cout << "Enter Number of Persons to add :: ";
+    cin >> inp;
+    if (inp == 0)
+    {
+        return;
+    }
+    *n = inp;
+    Person *t = new Person[inp];
+    cout << endl;
+    cin.ignore();
+    for (int i = 0; i < *n; i++)
+    {
+        cout << "Enter Persons First Name :: ";
+        getline(cin, t[i].fname);
+        cout << "Enter " << t[i].fname << "'s Last Name :: ";
+        getline(cin, t[i].sname);
+        cout << "Enter " << t[i].fname << " " << t[i].sname << "'s AccType :: ";
+        getline(cin, t[i].accountType);
+        t[i].accountId = accNumChk++;
+        t[i].balance = 0;
+        t[i].loan = 0;
+        cout << "Enter " << t[i].fname << " " << t[i].sname << "'s Pin :: ";
+        cin >> t[i].pin;
+        cout << endl;
+    }
+
+    fout.open(filename, ios::ate | ios::out | ios::app);
+    if (fout.is_open())
+    {
+        for (int i = 0; i < *n; i++)
+        {
+            fout << t[i].fname << " " << t[i].sname << " " << t[i].accountId << " " << t[i].accountType << " " << t[i].balance << " " << t[i].loan << " " << t[i].pin << endl;
+        }
+    }
+    else
+    {
+        color(12);
+        cout << "Remote Database Access Failed!" << endl;
+        cout << endl;
+        color(15);
+    }
+    read_file(person, n, accNumChk);
+    delete t;
+    fout.close();
+    cin.ignore();
+}
+
+// Outputs data stored in the file
+void o_data(Person *person, short *n)
+{
+    read_file(&person, n, accNumChk);
+    cout << "FirstName \t LastName \t AccID \t\t AccType \t Balance \t Loan" << endl;
+    for (int i = 0; i < *n; i++)
+    {
+        cout << setw(17) << left << person[i].fname << setw(16) << left << person[i].sname << setw(16) << left << person[i].accountId << setw(16) << left << person[i].accountType << setw(16) << left << person[i].balance << person[i].loan << endl;
+    }
+    cout << endl;
+}
+
+// adding money to customer account
+void add_money(Person *person, short *n)
+{
+    int t_id;
+    int amount;
+    cout << "Enter Account ID to add money to :: ";
+    cin >> t_id;
+    t_id = id_chk(person, n, t_id);
+    if (t_id == -1)
+    {
+        color(12);
+        cout << "Account Does Not Exist !" << endl;
+        color(15);
+        return;
+    }
+    cout << "Enter amount to add to " << person[t_id].fname << " " << person[t_id].sname << " :: ";
+    cin >> amount;
+    person[t_id].balance += amount;
+    color(10);
+    cout << "Successfully Added :: " << amount << " to " << person[t_id].fname << " " << person[t_id].sname << endl;
+    color(15);
     update_file(person, n);
 }
 
@@ -640,6 +603,26 @@ void delete_acc(Person *person, short *n)
     fin.close();
     read_file(&person, n, accNumChk);
 }
+
+// for management login
+bool admin_login()
+{
+    string pass;
+    cout << "Enter Admin Password :: ";
+    getline(cin, pass);
+    if (pass == "admin")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+//=======Admin Functions=========//
+
+//======Menu Functions=======//
 
 // main menu
 int main_menu(Person *person, short *n)
@@ -894,6 +877,23 @@ label1:
     return opt;
 }
 
+//======Menu Functions=======//
+
+//======Misc Functions=======//
+
+// account id check
+int id_chk(Person *person, short *n, int t_id)
+{
+    for (int i = 0; i < *n; i++)
+    {
+        if (person[i].accountId == t_id)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 // for scrolling selection
 int selection(int yxis)
 {
@@ -944,58 +944,80 @@ int selection(int yxis)
     }
 }
 
-// for management login
-bool admin_login()
+void color(int n)
 {
-    string pass;
-    cout << "Enter Admin Password :: ";
-    getline(cin, pass);
-    if (pass == "admin")
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    SetConsoleTextAttribute(console, n);
 }
 
-// account id check
-int id_chk(Person *person, short *n, int t_id)
+// For Cursor Location
+void g_xy(int x, int y)
 {
-    for (int i = 0; i < *n; i++)
-    {
-        if (person[i].accountId == t_id)
-        {
-            return i;
-        }
-    }
-    return -1;
+    COORD cp;
+    cp.X = x;
+    cp.Y = y;
+    SetConsoleCursorPosition(console, cp);
 }
 
-void print_statement(Person *person, short *n)
+// For printing line
+void line(int num)
 {
-
-    cout << "Statement for " << person[id].fname << " " << person[id].sname << endl;
+    for (int i = 0; i <= num; i++)
+    {
+        cout << "=";
+    }
     cout << endl;
-    string line;
-    string statfile = "statement-";
-    statfile = statfile.append(to_string(person[id].accountId));
-    statfile += ".txt";
-    fin.open(statfile, ios::in);
+}
+
+// check the number of customers in the database
+void siz(short *n)
+{
+    int chk = 0;
+    string garbage;
+    fin.open(filename, ios::in);
+
     if (fin.is_open())
     {
         while (!fin.eof())
         {
-            getline(fin, line);
-            cout << line << endl;
+            getline(fin, garbage);
+            chk++;
         }
+    }
+    fin.close();
+    *n = --chk;
+}
+
+// checks the customers Account Type
+int accTypeChk(Person *person)
+{
+    string type;
+    type = (person[id].accountType);
+    int max_amm;
+    if ((strcmpi(type.c_str(), "platinum")) == 0)
+    {
+        max_amm = 1000000;
+        return max_amm;
+    }
+    else if ((strcmpi(type.c_str(), "gold")) == 0)
+    {
+        max_amm = 75000;
+        return max_amm;
+    }
+    else if ((strcmpi(type.c_str(), "silver")) == 0)
+    {
+        max_amm = 50000;
+        return max_amm;
+    }
+    else if ((strcmpi(type.c_str(), "bronze")) == 0)
+    {
+        max_amm = 25000;
+        return max_amm;
     }
     else
     {
-        color(12);
-        cout << "Failed to retreive statement!" << endl;
-        color(15);
+        max_amm = 0;
+        return max_amm;
     }
-    fin.close();
 }
+
+//======Misc Functions=======//

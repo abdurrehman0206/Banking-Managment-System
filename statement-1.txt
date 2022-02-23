@@ -2,3 +2,4 @@ Recieved Money	+1950	from	Amy Kalahan
 Sent Money	-124	to	Ama Watsson
 Withdrew Money	-2376
 Sent Money	-124	to	Ama Watsson
+Payed Loan 	-2500
