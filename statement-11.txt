@@ -1,0 +1,4 @@
+Borrowed Loan 	+2500
+Recieved Money	+124	from	Andy Yuri
+Recieved Money	+124	from	Andy Yuri
+Payed Loan 	-5000

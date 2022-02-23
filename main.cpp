@@ -70,7 +70,9 @@ int main()
                         system("CLS");
                         break;
                     case 6:
-                        
+                        print_statement(person, &n);
+                        system("pause");
+                        system("CLS");                        
                         break;
                     case 7:
                         loop_control = false;

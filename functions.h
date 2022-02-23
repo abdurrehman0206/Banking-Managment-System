@@ -972,3 +972,30 @@ int id_chk(Person *person, short *n, int t_id)
     }
     return -1;
 }
+
+void print_statement(Person *person, short *n)
+{
+
+    cout << "Statement for " << person[id].fname << " " << person[id].sname << endl;
+    cout << endl;
+    string line;
+    string statfile = "statement-";
+    statfile = statfile.append(to_string(person[id].accountId));
+    statfile += ".txt";
+    fin.open(statfile, ios::in);
+    if (fin.is_open())
+    {
+        while (!fin.eof())
+        {
+            getline(fin, line);
+            cout << line << endl;
+        }
+    }
+    else
+    {
+        color(12);
+        cout << "Failed to retreive statement!" << endl;
+        color(15);
+    }
+    fin.close();
+}

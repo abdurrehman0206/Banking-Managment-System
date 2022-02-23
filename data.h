@@ -48,4 +48,5 @@ int customer_menu(Person *person, short *n);
 int management_menu(Person *person, short *n);
 bool admin_login();
 int id_chk(Person *person, short *n, int t_id);
+void print_statement(Person *person, short *n);
 //PROTOTYPE
