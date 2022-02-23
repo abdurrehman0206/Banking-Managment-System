@@ -185,10 +185,16 @@ bool login(Person *person, short *n, int *id)
     cin >> pass;
     if (pass == person[*id].pin)
     {
+        color(10);
+        cout << "Login Successful !" << endl;
+        color(15);
         return true;
     }
     else
     {
+        color(12);
+        cout << "Login Failed !" << endl;
+        color(15);
         return false;
     }
 }
@@ -231,6 +237,23 @@ void withdraw(Person *person, short *n)
         cout << "Successfully transaction of :: " << amount << endl;
         color(15);
         cout << "Remaining Balance :: " << person[id].balance << endl;
+        string statfile = "statement-";
+        statfile = statfile.append(to_string(person[id].accountId));
+        statfile += ".txt";
+        fout.open(statfile, ios::out | ios::app);
+        if (fout.is_open())
+        {
+            fout << "Withdrew Money"
+                 << "\t"
+                 << "-" << amount << endl;
+        }
+        else
+        {
+            color(12);
+            cout << "Error! Could not update statement!" << endl;
+            color(15);
+        }
+        fout.close();
     }
     else if (person[id].balance < amount)
     {
@@ -285,6 +308,44 @@ void send(Person *person, short *n)
         cout << "Successfully sent " << amount << " to " << person[r_id].fname << " " << person[r_id].sname << endl;
         color(15);
         cout << "Remaining Balance :: " << person[id].balance << endl;
+        string statfile = "statement-";
+        statfile = statfile.append(to_string(person[id].accountId));
+        statfile += ".txt";
+        fout.open(statfile, ios::out | ios::app);
+        if (fout.is_open())
+        {
+            fout << "Sent Money"
+                 << "\t"
+                 << "-" << amount << "\t"
+                 << "to"
+                 << "\t" << person[r_id].fname << " " << person[r_id].sname << endl;
+        }
+        else
+        {
+            color(12);
+            cout << "Error! Could not update statement!" << endl;
+            color(15);
+        }
+        fout.close();
+        statfile = "statement-";
+        statfile = statfile.append(to_string(person[r_id].accountId));
+        statfile += ".txt";
+        fout.open(statfile, ios::out | ios::app);
+        if (fout.is_open())
+        {
+            fout << "Recieved Money"
+                 << "\t"
+                 << "+" << amount << "\t"
+                 << "from"
+                 << "\t" << person[id].fname << " " << person[id].sname << endl;
+        }
+        else
+        {
+            color(12);
+            cout << "Error! Could not update statement!" << endl;
+            color(15);
+        }
+        fout.close();
     }
     else if (person[id].balance < amount)
     {
@@ -336,10 +397,26 @@ void get_loan(Person *person, short *n)
         person[id].loan += amount;
         color(10);
         cout << "Successfully Took Loan of " << amount << endl;
-
         color(15);
         cout << "New Balance :: " << person[id].balance << endl;
         cout << "Loan Added :: " << person[id].loan << endl;
+        string statfile = "statement-";
+        statfile = statfile.append(to_string(person[id].accountId));
+        statfile += ".txt";
+        fout.open(statfile, ios::out | ios::app);
+        if (fout.is_open())
+        {
+            fout << "Borrowed Loan "
+                 << "\t"
+                 << "+" << amount << endl;
+        }
+        else
+        {
+            color(12);
+            cout << "Error! Could not update statement!" << endl;
+            color(15);
+        }
+        fout.close();
     }
     else
     {
@@ -366,6 +443,23 @@ void pay_loan(Person *person, short *n)
         color(15);
         cout << "New Balance :: " << person[id].balance << endl;
         cout << "Updated loan :: " << person[id].loan << endl;
+        string statfile = "statement-";
+        statfile = statfile.append(to_string(person[id].accountId));
+        statfile += ".txt";
+        fout.open(statfile, ios::out | ios::app);
+        if (fout.is_open())
+        {
+            fout << "Payed Loan "
+                 << "\t"
+                 << "-" << amount << endl;
+        }
+        else
+        {
+            color(12);
+            cout << "Error! Could not update statement!" << endl;
+            color(15);
+        }
+        fout.close();
     }
     else if (amount > person[id].loan)
     {
@@ -650,6 +744,18 @@ label1:
         cout << setw(43) << left << "| Pay Loan"
              << "|" << endl;
     }
+    if (opt == 6)
+    {
+        color(10);
+        cout << setw(43) << left << "> Show Statement"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(43) << left << "| Show Statement"
+             << "|" << endl;
+    }
 
     cout << setw(43) << left << "| Go To Main Menu!"
          << "|" << endl;
@@ -671,7 +777,7 @@ label1:
     line(43);
     if (opt == -1 && flip == 0)
     {
-        opt = selection(7);
+        opt = selection(8);
         goto label1;
     }
     return opt;

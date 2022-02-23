@@ -36,7 +36,7 @@ int main()
                     default:
                         system("CLS");
                         break;
-                    case 7:
+                    case 8:
                         cout << "Are you sure you want to QUIT![y|Y] :: ";
                         cin >> yn;
                         if (yn == 'y' || yn == 'Y')
@@ -70,6 +70,9 @@ int main()
                         system("CLS");
                         break;
                     case 6:
+                        
+                        break;
+                    case 7:
                         loop_control = false;
                         system("pause");
                         system("CLS");
