@@ -555,13 +555,13 @@ void modify_acc(Person *person, short *n)
         color(15);
         return;
     }
-    cin.ignore();
-    if (t_id <= accNumChk)
+    else if (t_id <= accNumChk)
     {
+        cin.ignore();
         cout << setw(17) << left << person[t_id].fname << setw(16) << left << person[t_id].sname << setw(16) << left << person[t_id].accountId << setw(16) << left << person[t_id].accountType << setw(16) << left << person[t_id].balance << person[t_id].loan << endl;
         cout << "Enter New First Name :: ";
         getline(cin, person[t_id].fname);
-        cout << "Enter New Last Name for " << person[t_id].fname << " ::";
+        cout << "Enter New Last Name for " << person[t_id].fname << " :: ";
         getline(cin, person[t_id].sname);
         cout << "Enter " << person[t_id].fname << " " << person[t_id].sname << "'s AccType :: ";
         getline(cin, person[t_id].accountType);
@@ -570,7 +570,7 @@ void modify_acc(Person *person, short *n)
     else
     {
         color(12);
-        cout << "Account does not exist!" << endl;
+        cout << "Technical Error!" << endl;
         color(15);
     }
     read_file(&person, n, accNumChk);
@@ -656,12 +656,10 @@ int main_menu(Person *person, short *n)
 
     cout << setw(43) << left << "| Customer Menu"
          << "|" << endl;
-
     cout << setw(43) << left << "| Managment Menu"
          << "|" << endl;
     cout << setw(43) << left << "| QUIT!"
          << "|" << endl;
-
     cout << setw(43) << left << "|"
          << "|" << endl;
     line(43);
