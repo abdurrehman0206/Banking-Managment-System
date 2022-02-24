@@ -415,9 +415,10 @@ void i_data(Person **person, short *n)
     *n = inp;
     Person *t = new Person[inp];
     cout << endl;
-    cin.ignore();
+
     for (int i = 0; i < *n; i++)
     {
+        cin.ignore();
         cout << "Enter Persons First Name :: ";
         getline(cin, t[i].fname);
         cout << "Enter " << t[i].fname << "'s Last Name :: ";
@@ -425,6 +426,7 @@ void i_data(Person **person, short *n)
         cout << "Enter " << t[i].fname << " " << t[i].sname << "'s AccType :: ";
         getline(cin, t[i].accountType);
         t[i].accountId = accNumChk++;
+        cout << "Account Number Assigned to " << t[i].fname << " :: " << t[i].sname << " :: " << t[i].accountId << endl;
         t[i].balance = 0;
         t[i].loan = 0;
         cout << "Enter " << t[i].fname << " " << t[i].sname << "'s Pin :: ";
@@ -447,9 +449,9 @@ void i_data(Person **person, short *n)
         cout << endl;
         color(15);
     }
+    fout.close();
     read_file(person, n, accNumChk);
     delete t;
-    fout.close();
     cin.ignore();
 }
 
@@ -480,13 +482,33 @@ void add_money(Person *person, short *n)
         color(15);
         return;
     }
-    cout << "Enter amount to add to " << person[t_id].fname << " " << person[t_id].sname << " :: ";
-    cin >> amount;
-    person[t_id].balance += amount;
-    color(10);
-    cout << "Successfully Added :: " << amount << " to " << person[t_id].fname << " " << person[t_id].sname << endl;
-    color(15);
-    update_file(person, n);
+    else
+    {
+        cout << "Enter amount to add to " << person[t_id].fname << " " << person[t_id].sname << " :: ";
+        cin >> amount;
+        person[t_id].balance += amount;
+        color(10);
+        cout << "Successfully Added :: " << amount << " to " << person[t_id].fname << " " << person[t_id].sname << endl;
+        color(15);
+        update_file(person, n);
+        string statfile = "statement-";
+        statfile = statfile.append(to_string(person[t_id].accountId));
+        statfile += ".txt";
+        fout.open(statfile, ios::out | ios::app);
+        if (fout.is_open())
+        {
+            fout << "Bank Deposit"
+                 << "\t"
+                 << "+" << amount << endl;
+        }
+        else
+        {
+            color(12);
+            cout << "Error! Could not update statement!" << endl;
+            color(15);
+        }
+        fout.close();
+    }
 }
 
 // for management to alot loan to an account
