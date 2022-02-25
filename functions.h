@@ -423,10 +423,15 @@ void i_data(Person **person, short *n)
         getline(cin, t[i].fname);
         cout << "Enter " << t[i].fname << "'s Last Name :: ";
         getline(cin, t[i].sname);
-        cout << "Enter " << t[i].fname << " " << t[i].sname << "'s AccType :: ";
-        getline(cin, t[i].accountType);
+
+        do
+        {
+            cout << "Enter " << t[i].fname << " " << t[i].sname << "'s AccType :: ";
+            getline(cin, t[i].accountType);
+        } while ((stricmp("platinum", (t[i].accountType).c_str()) != 0) && (stricmp("gold", (t[i].accountType).c_str()) != 0) && (stricmp("gold", (t[i].accountType).c_str()) != 0) && (stricmp("gold", (t[i].accountType).c_str()) != 0));
+
         t[i].accountId = accNumChk++;
-        cout << "Account Number Assigned to " << t[i].fname << " :: " << t[i].sname << " :: " << t[i].accountId << endl;
+        cout << "Account Number Assigned to " << t[i].fname << " " << t[i].sname << " :: " << t[i].accountId << endl;
         t[i].balance = 0;
         t[i].loan = 0;
         cout << "Enter " << t[i].fname << " " << t[i].sname << "'s Pin :: ";

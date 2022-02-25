@@ -12,7 +12,7 @@ using namespace std;
 struct Person
 {
     string fname, sname, accountType;
-    int accountId, pin;
+    unsigned int accountId, pin;
     unsigned long long int balance, loan;
 };
 
