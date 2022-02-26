@@ -2,7 +2,7 @@
 
 int main()
 {
-
+    
     read_file(&person, &n, accNumChk);
 
     int opt, main_opt;
