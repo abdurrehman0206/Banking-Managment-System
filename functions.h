@@ -5,7 +5,7 @@
 //======Real Time Updating=====//
 
 // Reads the file that holds all the data
-void read_file(Person **person, short *n, int &accNumChk)
+void read_file(Person **person, int *n, int &accNumChk)
 {
     siz(n);
     Person *t = new Person[*n];
@@ -39,7 +39,7 @@ void read_file(Person **person, short *n, int &accNumChk)
 }
 
 // updates the file if local changes are made
-void update_file(Person *person, short *n)
+void update_file(Person *person, int *n)
 {
 
     fout.open(filename, ios::out | ios::trunc);
@@ -66,7 +66,7 @@ void update_file(Person *person, short *n)
 //=======Customer Functions=========//
 
 // for customer to withdraw money
-void withdraw(Person *person, short *n)
+void withdraw(Person *person, int *n)
 {
     int amount = 0, max_amm;
     cout << "Enter Amount to withdraw :: ";
@@ -126,7 +126,7 @@ void withdraw(Person *person, short *n)
 }
 
 // for customer to send money to another account
-void send(Person *person, short *n)
+void send(Person *person, int *n)
 {
     int amount = 0, max_amm, r_id;
     cout << "Enter ID of the Account to send to :: ";
@@ -224,7 +224,7 @@ void send(Person *person, short *n)
 }
 
 // for customer to get a loan
-void get_loan(Person *person, short *n)
+void get_loan(Person *person, int *n)
 {
     int amount = 0, max_amm;
 
@@ -270,7 +270,7 @@ void get_loan(Person *person, short *n)
 }
 
 // for customer to pay loan
-void pay_loan(Person *person, short *n)
+void pay_loan(Person *person, int *n)
 {
     int amount = 0, max_amm;
 
@@ -326,7 +326,7 @@ void pay_loan(Person *person, short *n)
 }
 
 // for customer to change pin
-void change_pin(Person *person, short *n)
+void change_pin(Person *person, int *n)
 {
     int t_pin;
     cout << "Enter new Pin :: ";
@@ -336,7 +336,7 @@ void change_pin(Person *person, short *n)
 }
 
 // Print customer statement
-void print_statement(Person *person, short *n)
+void print_statement(Person *person, int *n)
 {
 
     cout << "Statement for " << person[id].fname << " " << person[id].sname << endl;
@@ -364,9 +364,9 @@ void print_statement(Person *person, short *n)
 }
 
 // for customer login (pin based)
-bool login(Person *person, short *n, int *id)
+bool login(Person *person, int *n, int *id)
 {
-    short pass;
+    int pass;
     int t_id;
     cout << "Enter your accountId :: ";
     cin >> t_id;
@@ -403,9 +403,9 @@ bool login(Person *person, short *n, int *id)
 //=======Admin Functions=========//
 
 // adding accounts to database
-void add_acc(Person **person, short *n)
+void add_acc(Person **person, int *n)
 {
-    short inp;
+    int inp;
     cout << "Input ::" << endl;
     cout << "Enter Number of Persons to add :: ";
     cin >> inp;
@@ -462,7 +462,7 @@ void add_acc(Person **person, short *n)
 }
 
 // Outputs data stored in the file
-void o_data(Person *person, short *n)
+void o_data(Person *person, int *n)
 {
     read_file(&person, n, accNumChk);
     cout << "FirstName \t LastName \t AccID \t\t AccType \t Balance \t Loan" << endl;
@@ -474,7 +474,7 @@ void o_data(Person *person, short *n)
 }
 
 // adding money to customer account
-void add_money(Person *person, short *n)
+void add_money(Person *person, int *n)
 {
     int t_id;
     int amount;
@@ -518,7 +518,7 @@ void add_money(Person *person, short *n)
 }
 
 // for management to alot loan to an account
-void alot_loan(Person *person, short *n)
+void alot_loan(Person *person, int *n)
 {
     int amount, t_id;
     cout << "Enter account ID to alot loan to :: ";
@@ -548,7 +548,7 @@ void alot_loan(Person *person, short *n)
 }
 
 // for management to modify an account
-void modify_acc(Person *person, short *n)
+void modify_acc(Person *person, int *n)
 {
     int t_id;
     cout << "Enter ID of account you want to modify :: ";
@@ -588,7 +588,7 @@ void modify_acc(Person *person, short *n)
 }
 
 // for management to delete accounts
-void delete_acc(Person *person, short *n)
+void delete_acc(Person *person, int *n)
 
 {
     int t_id;
@@ -661,7 +661,7 @@ bool admin_login()
 //======Menu Functions=======//
 
 // main menu
-int main_menu(Person *person, short *n)
+int main_menu(Person *person, int *n)
 {
     int opt = -1;
     line(43);
@@ -680,7 +680,7 @@ int main_menu(Person *person, short *n)
 }
 
 // customer menu
-int customer_menu(Person *person, short *n)
+int customer_menu(Person *person, int *n)
 {
 
     bool flip = 0;
@@ -799,7 +799,7 @@ label1:
 }
 
 // management menu
-int management_menu(Person *person, short *n)
+int management_menu(Person *person, int *n)
 {
 
     bool flip = 0;
@@ -914,7 +914,7 @@ label1:
 //======Misc Functions=======//
 
 // account id check
-int id_chk(Person *person, short *n, int t_id)
+int id_chk(Person *person, int *n, int t_id)
 {
     for (int i = 0; i < *n; i++)
     {
@@ -1001,7 +1001,7 @@ void line(int num)
 }
 
 // check the number of customers in the database
-void siz(short *n)
+void siz(int *n)
 {
     int chk = 0;
     string garbage;

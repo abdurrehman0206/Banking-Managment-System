@@ -18,7 +18,7 @@ struct Person
 
 int accNumChk = 0;
 int id = -1;
-short n;
+int n;
 Person *person = new Person[n];
 const string filename = "accounts.dat";
 ifstream fin;
