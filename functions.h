@@ -31,6 +31,7 @@ void read_file(Person **person, short *n, int &accNumChk)
         cout << endl;
         color(15);
     }
+    fin.seekg(0, ios::end);
     fin.close();
     accNumChk = (t[*n - 1].accountId) + 1;
     *person = t;
@@ -41,7 +42,7 @@ void read_file(Person **person, short *n, int &accNumChk)
 void update_file(Person *person, short *n)
 {
 
-    fout.open(filename, ios::out);
+    fout.open(filename, ios::out | ios::trunc);
     if (fout.is_open())
     {
         for (int i = 0; i < *n; i++)
@@ -428,7 +429,7 @@ void i_data(Person **person, short *n)
         {
             cout << "Enter " << t[i].fname << " " << t[i].sname << "'s AccType :: ";
             getline(cin, t[i].accountType);
-        } while ((stricmp("platinum", (t[i].accountType).c_str()) != 0) && (stricmp("gold", (t[i].accountType).c_str()) != 0) && (stricmp("gold", (t[i].accountType).c_str()) != 0) && (stricmp("gold", (t[i].accountType).c_str()) != 0));
+        } while ((stricmp("platinum", (t[i].accountType).c_str()) != 0) && (stricmp("gold", (t[i].accountType).c_str()) != 0) && (stricmp("bronze", (t[i].accountType).c_str()) != 0) && (stricmp("silver", (t[i].accountType).c_str()) != 0));
 
         t[i].accountId = accNumChk++;
         cout << "Account Number Assigned to " << t[i].fname << " " << t[i].sname << " :: " << t[i].accountId << endl;
@@ -568,8 +569,12 @@ void modify_acc(Person *person, short *n)
         getline(cin, person[t_id].fname);
         cout << "Enter New Last Name for " << person[t_id].fname << " :: ";
         getline(cin, person[t_id].sname);
-        cout << "Enter " << person[t_id].fname << " " << person[t_id].sname << "'s AccType :: ";
-        getline(cin, person[t_id].accountType);
+
+        do
+        {
+            cout << "Enter " << person[t_id].fname << " " << person[t_id].sname << "'s AccType :: ";
+            getline(cin, person[t_id].accountType);
+        } while ((stricmp("platinum", (person[t_id].accountType).c_str()) != 0) && (stricmp("gold", (person[t_id].accountType).c_str()) != 0) && (stricmp("silver", (person[t_id].accountType).c_str()) != 0) && (stricmp("bronze", (person[t_id].accountType).c_str()) != 0));
         update_file(person, n);
     }
     else
@@ -578,6 +583,7 @@ void modify_acc(Person *person, short *n)
         cout << "Technical Error!" << endl;
         color(15);
     }
+    update_file(person, n);
     read_file(&person, n, accNumChk);
 }
 
@@ -597,27 +603,25 @@ void delete_acc(Person *person, short *n)
         color(15);
         return;
     }
-    // cin.ignore();
     if (t_id <= accNumChk)
     {
-
         fout.open(filename, ios::out | ios::trunc);
         if (fout.is_open())
         {
+            int ind = 0;
             for (int i = 0; i < *n; i++)
             {
+
                 if (i == t_id)
                 {
-                    person[i].fname = "";
-                    person[i].sname = "";
-                    person[i].accountId = -1;
-                    person[i].accountType = "";
-                    person[i].balance = 0;
-                    person[i].loan = 0;
-                    person[i].pin = 0;
                     continue;
                 }
-                fout << person[i].fname << " " << person[i].sname << " " << person[i].accountId << " " << person[i].accountType << " " << person[i].balance << " " << person[i].loan << " " << person[i].pin << endl;
+                else
+                {
+                    person[ind] = person[i];
+                    fout << person[ind].fname << " " << person[ind].sname << " " << person[ind].accountId << " " << person[ind].accountType << " " << person[ind].balance << " " << person[ind].loan << " " << person[ind].pin << endl;
+                    ind++;
+                }
             }
         }
     }
@@ -1009,7 +1013,8 @@ void siz(short *n)
         }
     }
     fin.close();
-    *n = --chk;
+    chk--;
+    *n = chk;
 }
 
 // checks the customers Account Type
