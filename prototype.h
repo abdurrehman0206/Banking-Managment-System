@@ -13,7 +13,7 @@ bool login(Person *person, short *n, int *id);
 //=====Customer Fucntions=====//
 
 //======Admin Fucntions======//
-void i_data(Person **person, short *n);
+void add_acc(Person **person, short *n);
 void o_data(Person *person, short *n);
 void add_money(Person *person, short *n);
 void alot_loan(Person *person, short *n);

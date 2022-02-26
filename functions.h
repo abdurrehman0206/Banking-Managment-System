@@ -403,7 +403,7 @@ bool login(Person *person, short *n, int *id)
 //=======Admin Functions=========//
 
 // adding accounts to database
-void i_data(Person **person, short *n)
+void add_acc(Person **person, short *n)
 {
     short inp;
     cout << "Input ::" << endl;
@@ -608,6 +608,10 @@ void delete_acc(Person *person, short *n)
         fout.open(filename, ios::out | ios::trunc);
         if (fout.is_open())
         {
+            color(10);
+            cout << endl
+                 << "Account Deleted :: " << person[t_id].fname << " " << person[t_id].sname << " " << person[t_id].accountId << endl;
+            color(15);
             int ind = 0;
             for (int i = 0; i < *n; i++)
             {
@@ -659,8 +663,6 @@ bool admin_login()
 // main menu
 int main_menu(Person *person, short *n)
 {
-
-    bool flip = 0;
     int opt = -1;
     line(43);
 
@@ -1023,10 +1025,10 @@ int accTypeChk(Person *person)
 {
     string type;
     type = (person[id].accountType);
-    int max_amm;
+    long long int max_amm;
     if ((strcmpi(type.c_str(), "platinum")) == 0)
     {
-        max_amm = 1000000;
+        max_amm = 10000000;
         return max_amm;
     }
     else if ((strcmpi(type.c_str(), "gold")) == 0)

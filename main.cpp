@@ -113,7 +113,7 @@ int main()
                         }
                         break;
                     case 1:
-                        i_data(&person, &n);
+                        add_acc(&person, &n);
                         system("pause");
                         system("CLS");
                         break;
