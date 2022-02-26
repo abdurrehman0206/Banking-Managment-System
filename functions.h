@@ -632,6 +632,7 @@ void delete_acc(Person *person, short *n)
         color(15);
     }
     fin.close();
+    update_file(person, n);
     read_file(&person, n, accNumChk);
 }
 
