@@ -513,6 +513,7 @@ void add_money(Person *person, int *n)
             cout << "Error! Could not update statement!" << endl;
             color(15);
         }
+        cin.clear();
         fout.close();
     }
 }
