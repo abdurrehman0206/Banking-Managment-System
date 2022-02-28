@@ -664,6 +664,7 @@ bool admin_login()
 // main menu
 int main_menu(Person *person, int *n)
 {
+    cin.clear();
     int opt = -1;
     line(43);
 
@@ -683,7 +684,7 @@ int main_menu(Person *person, int *n)
 // customer menu
 int customer_menu(Person *person, int *n)
 {
-
+    cin.clear();
     bool flip = 0;
     int opt = -1;
 label1:
@@ -802,7 +803,7 @@ label1:
 // management menu
 int management_menu(Person *person, int *n)
 {
-
+    cin.clear();
     bool flip = 0;
     int opt = -1;
 label1:
