@@ -403,7 +403,7 @@ bool login(Person *person, int *n, int *id)
         {
             g_xy(58 + i, 23);
             cout << "*";
-            Sleep(400);
+            Sleep(300);
         }
         color(15);
         return false;
@@ -422,7 +422,7 @@ bool login(Person *person, int *n, int *id)
         {
             g_xy(58 + i, 23);
             cout << "*";
-            Sleep(400);
+            Sleep(300);
         }
 
         color(15);
@@ -439,7 +439,7 @@ bool login(Person *person, int *n, int *id)
         {
             g_xy(58 + i, 23);
             cout << "*";
-            Sleep(400);
+            Sleep(300);
         }
         color(15);
         return false;
