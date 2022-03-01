@@ -880,9 +880,7 @@ label1:
          << "|" << endl;
     line(119);
     color(15);
-    cout << setw(40) << left << "|" << person[id].fname << "\t" << person[id].sname << "\t" << person[id].accountId << "\t" << person[id].accountType << "\t" << person[id].balance << "\t" << person[id].loan << setw(32) << left << "\t"
-         << "|" << endl;
-
+    cout << setw(20) << left << "|" << setw(15) << left << person[id].fname << setw(15) << left << person[id].sname << setw(15) << left << person[id].accountId << setw(15) << left << person[id].accountType << setw(15) << left << person[id].balance << setw(24) << left << person[id].loan << "|" << endl;
     line(119);
     if (opt == -1 && flip == 0)
     {
