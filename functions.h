@@ -368,31 +368,79 @@ bool login(Person *person, int *n, int *id)
 {
     int pass;
     int t_id;
-    cout << "Enter your accountId :: ";
+    g_xy(42, 13);
+    cout << "ID" << endl;
+    g_xy(48, 12);
+    line(23);
+    g_xy(48, 13);
+    cout << setw(23) << left << "|"
+         << "|" << endl;
+    g_xy(48, 14);
+    line(23);
+    g_xy(42, 16);
+    cout << "PIN" << endl;
+    g_xy(48, 15);
+    line(23);
+    g_xy(48, 16);
+    cout << setw(23) << left << "|"
+         << "|" << endl;
+    g_xy(48, 17);
+    line(23);
+    g_xy(58, 13);
     cin >> t_id;
+    g_xy(58, 16);
+    cin >> pass;
+
     t_id = id_chk(person, n, t_id);
     if (t_id == -1)
     {
         color(12);
-        cout << "Account Does Not Exist !" << endl;
+        g_xy(49, 19);
+        cout << "Account Does Not Exist" << endl;
+        g_xy(55, 21);
+        cout << "Going Back" << endl;
+        for (int i = 0; i < 5; i++)
+        {
+            g_xy(58 + i, 23);
+            cout << "*";
+            Sleep(400);
+        }
         color(15);
         return false;
     }
     *id = t_id;
 
-    cout << "Enter your account Pin :: ";
-    cin >> pass;
     if (pass == person[*id].pin)
     {
         color(10);
-        cout << "Login Successful !" << endl;
+        g_xy(52, 19);
+        cout << "Login Successful" << endl;
+        g_xy(55, 21);
+        cout << "Please Wait" << endl;
+
+        for (int i = 0; i < 5; i++)
+        {
+            g_xy(58 + i, 23);
+            cout << "*";
+            Sleep(400);
+        }
+
         color(15);
         return true;
     }
     else
     {
         color(12);
-        cout << "Login Failed !" << endl;
+        g_xy(54, 19);
+        cout << "Login Failed" << endl;
+        g_xy(55, 21);
+        cout << "Going Back" << endl;
+        for (int i = 0; i < 5; i++)
+        {
+            g_xy(58 + i, 23);
+            cout << "*";
+            Sleep(400);
+        }
         color(15);
         return false;
     }
@@ -645,14 +693,49 @@ void delete_acc(Person *person, int *n)
 bool admin_login()
 {
     string pass;
-    cout << "Enter Admin Password :: ";
+    g_xy(42, 13);
+    cout << "Pass" << endl;
+    g_xy(48, 12);
+    line(23);
+    g_xy(48, 13);
+    cout << setw(23) << left << "|"
+         << "|" << endl;
+    g_xy(48, 14);
+    line(23);
+    g_xy(57, 13);
     getline(cin, pass);
     if (pass == "admin")
     {
+        color(10);
+        g_xy(52, 19);
+        cout << "Login Successful" << endl;
+        g_xy(55, 21);
+        cout << "Please Wait" << endl;
+
+        for (int i = 0; i < 5; i++)
+        {
+            g_xy(58 + i, 23);
+            cout << "*";
+            Sleep(400);
+        }
+
+        color(15);
         return true;
     }
     else
     {
+        color(12);
+        g_xy(54, 19);
+        cout << "Login Failed" << endl;
+        g_xy(55, 21);
+        cout << "Going Back" << endl;
+        for (int i = 0; i < 5; i++)
+        {
+            g_xy(58 + i, 23);
+            cout << "*";
+            Sleep(400);
+        }
+        color(15);
         return false;
     }
 }
@@ -666,18 +749,19 @@ int main_menu(Person *person, int *n)
 {
     cin.clear();
     int opt = -1;
-    line(43);
-
-    cout << setw(43) << left << "| Customer Menu"
+    line(119);
+    cout << setw(50) << left << "|" << setw(69) << left << ""
          << "|" << endl;
-    cout << setw(43) << left << "| Managment Menu"
+    cout << setw(50) << left << "|" << setw(69) << left << "  Customer Menu "
          << "|" << endl;
-    cout << setw(43) << left << "| QUIT!"
+    cout << setw(50) << left << "|" << setw(69) << left << " Managments Menu "
          << "|" << endl;
-    cout << setw(43) << left << "|"
+    cout << setw(50) << left << "|" << setw(69) << left << "       QUIT "
          << "|" << endl;
-    line(43);
-    opt = selection(3);
+    cout << setw(50) << left << "|" << setw(69) << left << ""
+         << "|" << endl;
+    line(119);
+    opt = selection(4);
     return opt;
 }
 
@@ -698,100 +782,108 @@ label1:
     }
     system("CLS");
 
-    line(43);
-    if (opt == 1)
-    {
-        color(10);
-        cout << setw(43) << left << "> Withdraw Money"
-             << "<" << endl;
-        color(15);
-    }
-    else
-    {
-        cout << setw(43) << left << "| Withdraw Money"
-             << "|" << endl;
-    }
-
+    line(119);
+    cout << setw(50) << left << "|" << setw(69) << left << ""
+         << "|" << endl;
     if (opt == 2)
     {
         color(10);
-        cout << setw(43) << left << "> Send Money"
+        cout << setw(50) << left << ">"
+             << setw(69) << left << " Withdraw Money"
              << "<" << endl;
         color(15);
     }
     else
     {
-        cout << setw(43) << left << "| Send Money"
-             << "|" << endl;
-    }
-    if (opt == 3)
-    {
-        color(10);
-        cout << setw(43) << left << "> Change Pin"
-             << "<" << endl;
-        color(15);
-    }
-    else
-    {
-        cout << setw(43) << left << "| Change Pin"
+        cout << setw(50) << left << "|"
+             << setw(69) << left << " Withdraw Money"
              << "|" << endl;
     }
 
+    if (opt == 3)
+    {
+        color(10);
+        cout << setw(50) << left << ">"
+             << setw(69) << left << "   Send Money"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(50) << left << "|"
+             << setw(69) << left << "   Send Money"
+             << "|" << endl;
+    }
     if (opt == 4)
     {
         color(10);
-        cout << setw(43) << left << "> Get Loan"
+        cout << setw(50) << left << ">"
+             << setw(69) << left << "   Change Pin"
              << "<" << endl;
         color(15);
     }
     else
     {
-        cout << setw(43) << left << "| Get Loan"
+        cout << setw(50) << left << "|"
+             << setw(69) << left << "   Change Pin"
              << "|" << endl;
     }
+
     if (opt == 5)
     {
         color(10);
-        cout << setw(43) << left << "> Pay Loan"
+        cout << setw(50) << left << ">"
+             << setw(69) << left << "    Get Loan"
              << "<" << endl;
         color(15);
     }
     else
     {
-        cout << setw(43) << left << "| Pay Loan"
+        cout << setw(50) << left << "|"
+             << setw(69) << left << "    Get Loan"
              << "|" << endl;
     }
     if (opt == 6)
     {
         color(10);
-        cout << setw(43) << left << "> Show Statement"
+        cout << setw(50) << left << ">"
+             << setw(69) << left << "    Pay Loan"
              << "<" << endl;
         color(15);
     }
     else
     {
-        cout << setw(43) << left << "| Show Statement"
+        cout << setw(50) << left << "|"
+             << setw(69) << left << "    Pay Loan"
+             << "|" << endl;
+    }
+    if (opt == 7)
+    {
+        color(10);
+        cout << setw(50) << left << ">"
+             << setw(69) << left << " Show Statement"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(50) << left << "|"
+             << setw(69) << left << " Show Statement"
              << "|" << endl;
     }
 
-    cout << setw(43) << left << "| Go To Main Menu!"
+    cout << setw(50) << left << "|"
+         << setw(69) << left << "    Go Back"
          << "|" << endl;
 
-    cout << setw(43) << left << "| QUIT!"
+    cout << setw(50) << left << "|" << setw(69) << left << ""
          << "|" << endl;
-
-    cout << setw(43) << left << "|"
-         << "|" << endl;
-    line(43);
+    line(119);
     color(15);
-    cout << "| First Name  : " << setw(27) << left << person[id].fname << "|" << endl;
-    cout << "| Last Name   : " << setw(27) << left << person[id].sname << "|" << endl;
-    cout << "| AccountID   : " << setw(27) << left << person[id].accountId << "|" << endl;
-    cout << "| AccountType : " << setw(27) << left << person[id].accountType << "|" << endl;
-    cout << "| Balance     : " << setw(27) << left << person[id].balance << "|" << endl;
-    cout << "| Loan        : " << setw(27) << left << person[id].loan << "|" << endl;
+    cout << setw(40) << left << "|" << person[id].fname << "\t" << person[id].sname << "\t" << person[id].accountId << "\t" << person[id].accountType << "\t" << person[id].balance << "\t" << person[id].loan << setw(32) << left << "\t"
+         << "|" << endl;
 
-    line(43);
+    line(119);
     if (opt == -1 && flip == 0)
     {
         opt = selection(8);
@@ -817,91 +909,90 @@ label1:
     }
     system("CLS");
 
-    line(43);
-    if (opt == 1)
-    {
-        color(10);
-        cout << setw(43) << left << "> Add Account "
-             << "<" << endl;
-        color(15);
-    }
-    else
-    {
-        cout << setw(43) << left << "| Add Account"
-             << "|" << endl;
-    }
-
+    line(119);
+    cout << setw(50) << left << "|" << setw(69) << left << ""
+         << "|" << endl;
     if (opt == 2)
     {
         color(10);
-        cout << setw(43) << left << "> Modify Account"
+        cout << setw(50) << left << ">" << setw(69) << left << "  Add Accounts"
              << "<" << endl;
         color(15);
     }
     else
     {
-        cout << setw(43) << left << "| Modify Account"
+        cout << setw(50) << left << "|" << setw(69) << left << "  Add Accounts"
              << "|" << endl;
     }
+
     if (opt == 3)
     {
         color(10);
-        cout << setw(43) << left << "> Delete Account"
+        cout << setw(50) << left << ">" << setw(69) << left << " Modify Account"
              << "<" << endl;
         color(15);
     }
     else
     {
-        cout << setw(43) << left << "| Delete Account"
+        cout << setw(50) << left << "|" << setw(69) << left << " Modify Account"
              << "|" << endl;
     }
     if (opt == 4)
     {
         color(10);
-        cout << setw(43) << left << "> Add Money"
+        cout << setw(50) << left << ">" << setw(69) << left << " Delete Account"
              << "<" << endl;
         color(15);
     }
     else
     {
-        cout << setw(43) << left << "| Add Money"
+        cout << setw(50) << left << "|" << setw(69) << left << " Delete Account"
              << "|" << endl;
     }
-
     if (opt == 5)
     {
         color(10);
-        cout << setw(43) << left << "> Alot Loan"
+        cout << setw(50) << left << ">" << setw(69) << left << "   Add Money"
              << "<" << endl;
         color(15);
     }
     else
     {
-        cout << setw(43) << left << "| Alot Loan"
+        cout << setw(50) << left << "|" << setw(69) << left << "   Add Money"
              << "|" << endl;
     }
+
     if (opt == 6)
     {
         color(10);
-        cout << setw(43) << left << "> Show All Account Database"
+        cout << setw(50) << left << ">" << setw(69) << left << "   Alot Loan"
              << "<" << endl;
         color(15);
     }
     else
     {
-        cout << setw(43) << left << "| Show All Account Database"
+        cout << setw(50) << left << "|" << setw(69) << left << "   Alot Loan"
+             << "|" << endl;
+    }
+    if (opt == 7)
+    {
+        color(10);
+        cout << setw(50) << left << ">" << setw(69) << left << "Account Database"
+             << "<" << endl;
+        color(15);
+    }
+    else
+    {
+        cout << setw(50) << left << "|" << setw(69) << left << "Account Database"
              << "|" << endl;
     }
 
-    cout << setw(43) << left << "| Go To Main Menu!"
+    cout << setw(50) << left << "|" << setw(69) << left << "    Go Back"
          << "|" << endl;
 
-    cout << setw(43) << left << "| QUIT!"
+    cout << setw(50) << left << "|" << setw(69) << left << ""
          << "|" << endl;
-
-    cout << setw(43) << left << "|"
-         << "|" << endl;
-    line(43);
+    line(119);
     color(15);
     if (opt == -1 && flip == 0)
     {
@@ -931,8 +1022,8 @@ int id_chk(Person *person, int *n, int t_id)
 // for scrolling selection
 int selection(int yxis)
 {
-    unsigned int pos = 0, y = 0;
-    g_xy(36, 0);
+    unsigned int pos = 1, y = 1;
+    g_xy(69, 1);
     char c;
     while (true)
     {
@@ -941,31 +1032,32 @@ int selection(int yxis)
 
         if (GetAsyncKeyState(VK_DOWN) && y <= yxis)
         {
-            g_xy(36, y);
-            if (y == 0)
-            {
-                color(15);
-                cout << "====";
-                color(12);
-            }
-            else
-            {
-                cout << "    ";
-            }
+            g_xy(70, y);
+
+            cout << "    ";
+            g_xy(43, y);
+
+            cout << "    ";
             y++;
-            g_xy(36, y);
+            g_xy(70, y);
             cout << "<===";
+            g_xy(43, y);
+            cout << "===>";
             pos++;
             continue;
         }
-        if (GetAsyncKeyState(VK_UP) && y > 0)
+        if (GetAsyncKeyState(VK_UP) && y > 1)
         {
 
-            g_xy(36, y);
+            g_xy(70, y);
+            cout << "    ";
+            g_xy(43, y);
             cout << "    ";
             y--;
-            g_xy(36, y);
+            g_xy(70, y);
             cout << "<===";
+            g_xy(43, y);
+            cout << "===>";
             pos--;
             continue;
         }

@@ -2,7 +2,7 @@
 
 int main()
 {
-    
+
     read_file(&person, &n, accNumChk);
 
     int opt, main_opt;
@@ -17,12 +17,13 @@ int main()
         switch (main_opt)
         {
         default:
-            system("CLS");
             break;
-        case 1:
+        case 2:
             loop_control = true;
             chk = login(person, &n, &id);
+            cin.clear();
             cin.ignore();
+
             if (chk == true)
             {
                 do
@@ -34,49 +35,40 @@ int main()
                     switch (opt)
                     {
                     default:
-                        system("CLS");
-                        break;
-                    case 8:
-                        cout << "Are you sure you want to QUIT![y|Y] :: ";
-                        cin >> yn;
-                        if (yn == 'y' || yn == 'Y')
-                        {
-                            exit(0);
-                        }
-                        break;
-                    case 1:
-                        withdraw(person, &n);
-                        system("pause");
-                        system("CLS");
                         break;
                     case 2:
-                        send(person, &n);
-                        system("pause");
+                        withdraw(person, &n);
+                        system("pause>nul");
                         system("CLS");
                         break;
                     case 3:
-                        change_pin(person, &n);
-                        system("pause");
+                        send(person, &n);
+                        system("pause>nul");
                         system("CLS");
                         break;
                     case 4:
-                        get_loan(person, &n);
-                        system("pause");
+                        change_pin(person, &n);
+                        system("pause>nul");
                         system("CLS");
                         break;
                     case 5:
-                        pay_loan(person, &n);
-                        system("pause");
+                        get_loan(person, &n);
+                        system("pause>nul");
                         system("CLS");
                         break;
                     case 6:
-                        print_statement(person, &n);
-                        system("pause");
+                        pay_loan(person, &n);
+                        system("pause>nul");
                         system("CLS");
                         break;
                     case 7:
+                        print_statement(person, &n);
+                        system("pause>nul");
+                        system("CLS");
+                        break;
+                    case 8:
                         loop_control = false;
-                        system("pause");
+                        cin.clear();
                         system("CLS");
                         break;
                     }
@@ -84,13 +76,11 @@ int main()
                 } while (loop_control == true);
             }
             loop_control = true;
-            cin.ignore();
             break;
 
-        case 2:
+        case 3:
             loop_control = true;
             chk = admin_login();
-            // cin.ignore();
             if (chk == true)
             {
                 do
@@ -104,47 +94,39 @@ int main()
                     default:
                         system("CLS");
                         break;
-                    case 8:
-                        cout << "Are you sure you want to QUIT![y|Y] :: ";
-                        cin >> yn;
-                        if (yn == 'y' || yn == 'Y')
-                        {
-                            exit(0);
-                        }
-                        break;
-                    case 1:
+                    case 2:
                         add_acc(&person, &n);
                         system("pause");
                         system("CLS");
                         break;
-                    case 2:
+                    case 3:
                         modify_acc(person, &n);
                         system("pause");
                         system("CLS");
                         break;
-                    case 3:
+                    case 4:
                         delete_acc(person, &n);
                         system("pause");
                         system("CLS");
                         break;
-                    case 4:
+                    case 5:
                         add_money(person, &n);
                         system("pause");
                         system("CLS");
                         break;
-                    case 5:
+                    case 6:
                         alot_loan(person, &n);
                         system("pause");
                         system("CLS");
                         break;
-                    case 6:
+                    case 7:
                         o_data(person, &n);
                         system("pause");
                         system("CLS");
                         break;
-                    case 7:
+                    case 8:
                         loop_control = false;
-                        system("pause");
+                        cin.clear();
                         system("CLS");
                         break;
                     }
@@ -153,7 +135,7 @@ int main()
             }
             loop_control = true;
             break;
-        case 3:
+        case 4:
             cout << "Are you sure you want to QUIT![y|Y] :: ";
             cin >> yn;
             if (yn == 'y' || yn == 'Y')

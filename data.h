@@ -6,6 +6,8 @@
 #include <windows.h>
 #include <cstring>
 #include <cstdio>
+#include <cstdlib>
+#include <unistd.h>
 
 using namespace std;
 
