@@ -692,6 +692,7 @@ void delete_acc(Person *person, int *n)
 // for management login
 bool admin_login()
 {
+    cin.sync();
     string pass;
     g_xy(42, 13);
     cout << "Pass" << endl;
@@ -716,7 +717,7 @@ bool admin_login()
         {
             g_xy(58 + i, 23);
             cout << "*";
-            Sleep(400);
+            Sleep(300);
         }
 
         color(15);
